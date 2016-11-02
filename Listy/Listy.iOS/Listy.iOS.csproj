@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{B5F36710-2EB9-44E6-9FF4-35DCFE521D46}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AdMaiora.Listy</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Listy</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchProfiling>true</MtouchProfiling>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>x86_64</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchProfiling>true</MtouchProfiling>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdMaiora.AppKit.Core, Version=1.0.6148.37478, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.6\lib\Xamarin.iOS10\AdMaiora.AppKit.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AdMaiora.AppKit.Core.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.6\lib\Xamarin.iOS10\AdMaiora.AppKit.Core.iOS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AdMaiora.AppKit.UI, Version=1.0.6148.37518, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.4\lib\Xamarin.iOS10\AdMaiora.AppKit.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AdMaiora.AppKit.UI.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.4\lib\Xamarin.iOS10\AdMaiora.AppKit.UI.iOS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=be81bb0f53eab22f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FubarCoder.RestSharp.Portable.Core.3.3.0\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\RestSharp.Portable.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp.Portable.HttpClient, Version=3.3.0.0, Culture=neutral, PublicKeyToken=be81bb0f53eab22f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FubarCoder.RestSharp.Portable.HttpClient.3.3.0\lib\Xamarin.iOS10\RestSharp.Portable.HttpClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite-net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\sqlite-net-pcl.1.2.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_green, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCLRaw.bundle_green.1.0.1\lib\Xamarin.iOS10\SQLitePCLRaw.batteries_green.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCLRaw.core.1.0.1\lib\Xamarin.iOS10\SQLitePCLRaw.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.sqlite3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=62684c7b4f184e3f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCLRaw.provider.sqlite3.ios_unified.1.0.1\lib\Xamarin.iOS10\SQLitePCLRaw.provider.sqlite3.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Listy\Listy.Core.csproj">
+      <Name>Listy.Core</Name>
+      <Project>{71EBDFC6-F481-4A4B-BB12-B564A255880A}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="Resources\ITunesArtwork" />
+    <ITunesArtwork Include="Resources\ITunesArtwork%402x" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\Layouts\AgendaViewController.xib" />
+    <None Include="app.config" />
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+    <None Include="packages.config" />
+    <InterfaceDefinition Include="Resources\Layouts\LoginViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\MainViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\Registration0ViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\Registration1ViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\RegistrationDoneViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\SplashViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\TaskViewController.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\Cells\TaskViewCell.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Layouts\Cells\TaskViewCell.cs" />
+    <Compile Include="Resources\Layouts\Cells\TaskViewCell.designer.cs">
+      <DependentUpon>TaskViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SubControllers\AgendaViewController.cs" />
+    <Compile Include="UI\SubControllers\AgendaViewController.designer.cs">
+      <DependentUpon>AgendaViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\SubControllers\TaskViewController.cs" />
+    <Compile Include="UI\SubControllers\TaskViewController.designer.cs">
+      <DependentUpon>TaskViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainControllers\%40ViewController.cs" />
+    <Compile Include="UI\MainControllers\MainViewController.cs" />
+    <Compile Include="UI\MainControllers\MainViewController.designer.cs">
+      <DependentUpon>MainViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainControllers\SplashViewController.cs" />
+    <Compile Include="UI\MainControllers\SplashViewController.designer.cs">
+      <DependentUpon>SplashViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SubControllers\%40SubController.cs" />
+    <Compile Include="UI\SubControllers\LoginViewController.cs" />
+    <Compile Include="UI\SubControllers\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SubControllers\Registration0ViewController.cs" />
+    <Compile Include="UI\SubControllers\Registration0ViewController.designer.cs">
+      <DependentUpon>Registration0ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SubControllers\Registration1ViewController.cs" />
+    <Compile Include="UI\SubControllers\Registration1ViewController.designer.cs">
+      <DependentUpon>Registration1ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SubControllers\RegistrationDoneViewController.cs" />
+    <Compile Include="UI\SubControllers\RegistrationDoneViewController.designer.cs">
+      <DependentUpon>RegistrationDoneViewController.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\img_head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\img_head1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\img_head2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>
