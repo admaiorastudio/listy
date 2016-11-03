@@ -16,9 +16,6 @@ namespace AdMaiora.Listy
 		UIKit.UITextField EmailText { get; set; }
 
 		[Outlet]
-		UIKit.UIButton FacebookLoginButton { get; set; }
-
-		[Outlet]
 		UIKit.UIView InputLayout { get; set; }
 
 		[Outlet]
@@ -79,11 +76,6 @@ namespace AdMaiora.Listy
 			if (VerifyButton != null) {
 				VerifyButton.Dispose ();
 				VerifyButton = null;
-			}
-
-			if (FacebookLoginButton != null) {
-				FacebookLoginButton.Dispose ();
-				FacebookLoginButton = null;
 			}
 		}
 	}

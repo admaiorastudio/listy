@@ -13,7 +13,7 @@ namespace AdMaiora.Listy
 	partial class Registration1ViewController
 	{
 		[Outlet]
-		UIKit.UIImageView CatImage { get; set; }
+		UIKit.UIImageView HeadImage { get; set; }
 
 		[Outlet]
 		UIKit.UIView InputLayout { get; set; }
@@ -26,6 +26,11 @@ namespace AdMaiora.Listy
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (HeadImage != null) {
+				HeadImage.Dispose ();
+				HeadImage = null;
+			}
+
 			if (InputLayout != null) {
 				InputLayout.Dispose ();
 				InputLayout = null;
@@ -34,11 +39,6 @@ namespace AdMaiora.Listy
 			if (PasswordLabel != null) {
 				PasswordLabel.Dispose ();
 				PasswordLabel = null;
-			}
-
-			if (CatImage != null) {
-				CatImage.Dispose ();
-				CatImage = null;
 			}
 
 			if (PasswordText != null) {

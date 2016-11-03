@@ -13,29 +13,29 @@ namespace AdMaiora.Listy
 	partial class RegistrationDoneViewController
 	{
 		[Outlet]
-		UIKit.UIImageView CatImage { get; set; }
+		UIKit.UIButton GoToLoginButton { get; set; }
 
 		[Outlet]
-		UIKit.UIButton GoToLoginButton { get; set; }
+		UIKit.UIImageView HeadImage { get; set; }
 
 		[Outlet]
 		UIKit.UILabel WelcomeLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (CatImage != null) {
-				CatImage.Dispose ();
-				CatImage = null;
-			}
-
-			if (WelcomeLabel != null) {
-				WelcomeLabel.Dispose ();
-				WelcomeLabel = null;
+			if (HeadImage != null) {
+				HeadImage.Dispose ();
+				HeadImage = null;
 			}
 
 			if (GoToLoginButton != null) {
 				GoToLoginButton.Dispose ();
 				GoToLoginButton = null;
+			}
+
+			if (WelcomeLabel != null) {
+				WelcomeLabel.Dispose ();
+				WelcomeLabel = null;
 			}
 		}
 	}
