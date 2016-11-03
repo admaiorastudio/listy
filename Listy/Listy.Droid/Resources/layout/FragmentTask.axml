@@ -98,11 +98,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp" />
         <TextView
-            android:text="Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2" />
-        <TextView
             android:text="Will do in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

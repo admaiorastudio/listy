@@ -24,14 +24,20 @@
 
     public class TodoItemController : ApiController
     {
+        #region Constructors
+
+        public TodoItemController()
+        {
+        }
+
+        #endregion
+
         #region Users Endpoint Methods
 
+        [Authorize]
         [HttpPost, Route("todo/addnew")]
         public IHttpActionResult AddNew(Poco.TodoItem item)
         {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
             if(item.UserId <= 0)
                 return BadRequest("User ID is not valid!");
 
@@ -72,12 +78,10 @@
             }
         }
 
+        [Authorize]
         [HttpPost, Route("todo/update")]
         public IHttpActionResult Update(Poco.TodoItem item)
         {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
             if (item.TodoItemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");
 
@@ -117,12 +121,10 @@
             }
         }
 
+        [Authorize]
         [HttpPost, Route("todo/complete")]
         public IHttpActionResult Complete(int itemId)
         {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
             if (itemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");
 
@@ -158,12 +160,10 @@
             }
         }
 
+        [Authorize]
         [HttpPost, Route("todo/delete")]
         public IHttpActionResult Delete(int itemId)
         {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
             if (itemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");
 
@@ -188,12 +188,10 @@
             }
         }
 
+        [Authorize]
         [HttpGet, Route("todo/mylist")]
         public IHttpActionResult GetMyList(int userId)
         {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
             if (userId <= 0)
                 return BadRequest("User ID is not valid!");
 
@@ -232,6 +230,5 @@
         }
 
         #endregion
-
     }
 }

@@ -39,8 +39,13 @@
             set;
         }
 
-
         public string Tags
+        {
+            get;
+            set;
+        }
+
+        public int WillDoIn
         {
             get;
             set;

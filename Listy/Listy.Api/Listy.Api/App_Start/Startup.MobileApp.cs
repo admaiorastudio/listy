@@ -34,7 +34,7 @@
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer(new ListyInitializer());
+            Database.SetInitializer(new Listy_ApiInitializer());
 
             // To prevent Entity Framework from modifying your database schema, use a null database initializer
             //Database.SetInitializer<ListyContext>(null);
@@ -57,7 +57,7 @@
         }
     }
 
-    public class ListyInitializer : CreateDatabaseIfNotExists<ListyDbContext>
+    public class Listy_ApiInitializer : CreateDatabaseIfNotExists<ListyDbContext>
     {
         protected override void Seed(ListyDbContext context)
         {

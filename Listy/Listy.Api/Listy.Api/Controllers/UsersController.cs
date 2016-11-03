@@ -14,16 +14,19 @@
     using System.Linq;
     using System.Data.Entity;
     using System.Threading.Tasks;
+    using System.IdentityModel.Tokens;
+    using System.Security.Claims;
 
     using AdMaiora.Listy.Api.Models;
     using AdMaiora.Listy.Api.DataObjects;
 
     using Microsoft.Azure.Mobile.Server;
     using Microsoft.Azure.Mobile.Server.Config;
+    using Microsoft.Azure.Mobile.Server.Login;
     using Microsoft.Azure.NotificationHubs;
 
     using SendGrid;
-    using SendGrid.Helpers.Mail;
+    using SendGrid.Helpers.Mail;    
 
     public class UsersController : ApiController
     {
@@ -35,12 +38,8 @@
         // Authorization token duration (in days)
         public const int AUTH_TOKEN_MAX_DURATION = 1;
 
-        // Numbers of logged user limit 
-        public const int USERS_MAX_LOGGED = 50;
-        // Interval to consider an user active (in minutes)
-        public const int USERS_MAX_INACTIVE_TIME = 30;
-
-        private NotificationHubClient _nhclient;
+        public const string JWT_SECURITY_TOKEN_AUDIENCE = "https://listy-api.azurewebsites.net/";
+        public const string JWT_SECURITY_TOKEN_ISSUER = "https://listy-api.azurewebsites.net/";
 
         #endregion
 
@@ -48,8 +47,6 @@
 
         public UsersController()
         {
-            //_nhclient = NotificationHubClient.CreateClientFromConnectionString(
-            //    "", "Listy");
         }
 
         #endregion
@@ -83,9 +80,9 @@
 
                     Email to = new Email(user.Email);
                     Email from = new Email("info@admaiorastudio.com");
-                    string subject = "Welocme to Chatty!";
+                    string subject = "Welocme to Listy!";
                     Content content = new Content("text/plain",
-                        String.Format("Hi {0},\n\nYou registration on Chatty is almost complete. Please click on this link to confirm your registration!\n\n{1}",
+                        String.Format("Hi {0},\n\nYou registration on Listy is almost complete. Please click on this link to confirm your registration!\n\n{1}",
                         user.Email.Split('@')[0],
                         String.Format("http://listy-api.azurewebsites.net/users/confirm?ticket={0}", user.Ticket)));
                     Mail mail = new Mail(from, subject, to, content);
@@ -98,6 +95,7 @@
                         Email = user.Email,
                         AuthAccessToken = null,
                         AuthExpirationDate = null
+
                     }));
                 }
             }
@@ -137,11 +135,11 @@
 
                     Email to = new Email(user.Email);
                     Email from = new Email("info@admaiorastudio.com");
-                    string subject = "Welocme to Chatty!";
+                    string subject = "Welocme to Listy!";
                     Content content = new Content("text/plain",
-                        String.Format("Hi {0},\n\nYou registration on Chatty is almost complete. Please click on this link to confirm your registration!\n\n{1}",
+                        String.Format("Hi {0},\n\nYou registration on Listy is almost complete. Please click on this link to confirm your registration!\n\n{1}",
                         user.Email.Split('@')[0],
-                        String.Format("http://listy-api.azurewebsites.net/users/confirm?ticket={0}", user.Ticket)));
+                        String.Format("https://listy-api.azurewebsites.net/users/confirm?ticket={0}", user.Ticket)));
                     Mail mail = new Mail(from, subject, to, content);
 
                     dynamic response = await mc.client.mail.send.post(requestBody: mail.Get());
@@ -177,7 +175,7 @@
                     IHttpActionResult response;
                     //we want a 303 with the ability to set location
                     HttpResponseMessage responseMsg = new HttpResponseMessage(HttpStatusCode.RedirectMethod);
-                    responseMsg.Headers.Location = new Uri("http://www.admaiorastudio.com/chatty/chatty.php");
+                    responseMsg.Headers.Location = new Uri("http://www.admaiorastudio.com/listy.php");
                     response = ResponseMessage(responseMsg);
                     return response;
                 }
@@ -187,7 +185,7 @@
                 return InternalServerError(ex);
             }
         }
-          
+
         [HttpPost, Route("users/login")]
         public IHttpActionResult LoginUser(Poco.User credentials)
         {
@@ -213,46 +211,12 @@
                     if (p1 != p2)
                         return Unauthorized();
 
-                    int activeUsers =
-                        ctx.Users.Count(x => x.LastActiveDate.HasValue
-                            && DbFunctions.DiffDays(DateTime.Now, x.AuthExpirationDate.Value) < UsersController.AUTH_TOKEN_MAX_DURATION);
-
-                    if (activeUsers == USERS_MAX_LOGGED)
-                    {
-                        // Check if we can kick out a user marked as not active
-                        User userToKick = ctx.Users
-                            .Where(x => x.LastActiveDate.HasValue)
-                            .Where(x => DbFunctions.DiffMinutes(DateTime.Now, x.LastActiveDate.Value) >= USERS_MAX_INACTIVE_TIME)
-                            .OrderBy(x => x.LastActiveDate.GetValueOrDefault())
-                            .SingleOrDefault();
-
-                        // We got a candidate?
-                        if (userToKick != null)
-                        {
-                            userToKick.LoginDate = null;
-                            userToKick.LastActiveDate = null;
-                            userToKick.AuthAccessToken = null;
-                            userToKick.AuthExpirationDate = null;
-                        }
-                        else
-                        {
-                            return InternalServerError(new InvalidOperationException("Max user logged reached. Please retry later!"));
-                        }
-                    }
-
+                    var token = GetAuthenticationTokenForUser(user.Email);
                     user.LoginDate = DateTime.Now.ToUniversalTime();
                     user.LastActiveDate = user.LoginDate;
-                    user.AuthAccessToken = Guid.NewGuid().ToString();
-                    user.AuthExpirationDate = DateTime.Now.AddDays(UsersController.AUTH_TOKEN_MAX_DURATION);
+                    user.AuthAccessToken = token.RawData;
+                    user.AuthExpirationDate = token.ValidTo;
                     ctx.SaveChanges();
-
-                    //_nhclient.SendGcmNativeNotificationAsync(
-                    //    Newtonsoft.Json.JsonConvert.SerializeObject(Push.Android.Make(
-                    //        "New user connected",
-                    //        String.Format("User {0} has joined the chat.", credentials.Email.Split('@')[0]),
-                    //        2,
-                    //        credentials.Email.Split('@')[0]
-                    //        )), String.Concat("!", user.Email));
 
                     return Ok(Dto.Wrap(new Poco.User
                     {
@@ -284,44 +248,9 @@
                     if (user == null)
                         return Unauthorized();
 
-                    int activeUsers =
-                        ctx.Users.Count(x => x.LastActiveDate.HasValue
-                            && DbFunctions.DiffDays(DateTime.Now, x.AuthExpirationDate.Value) < UsersController.AUTH_TOKEN_MAX_DURATION);
-
-                    if (activeUsers == USERS_MAX_LOGGED)
-                    {
-                        // Check if we can kick out a user marked as not active
-                        User userToKick = ctx.Users
-                            .Where(x => x.LastActiveDate.HasValue)
-                            .Where(x => DbFunctions.DiffMinutes(DateTime.Now, x.LastActiveDate.Value) >= USERS_MAX_INACTIVE_TIME)
-                            .OrderBy(x => x.LastActiveDate.GetValueOrDefault())
-                            .SingleOrDefault();
-
-                        // We got a candidate?
-                        if (userToKick != null)
-                        {
-                            userToKick.LoginDate = null;
-                            userToKick.LastActiveDate = null;
-                            userToKick.AuthAccessToken = null;
-                            userToKick.AuthExpirationDate = null;
-                        }
-                        else
-                        {
-                            return InternalServerError(new InvalidOperationException("Max user logged reached. Please retry later!"));
-                        }
-                    }
-
                     user.LoginDate = DateTime.Now.ToUniversalTime();
                     user.LastActiveDate = user.LoginDate;
                     ctx.SaveChanges();
-
-                    _nhclient.SendGcmNativeNotificationAsync(
-                        Newtonsoft.Json.JsonConvert.SerializeObject(Push.Android.Make(
-                            "New user connected",
-                            String.Format("User {0} has joined the chat.", user.Email.Split('@')[0]),
-                            2,
-                            user.Email.Split('@')[0]
-                            )), String.Concat("!", user.Email));
 
                     return Ok(Dto.Wrap(new Poco.User
                     {
@@ -339,92 +268,35 @@
             }
         }
 
-        [HttpPost, Route("users/logout")]
-        public IHttpActionResult LogoutUser(string email)
-        {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
-            if (string.IsNullOrWhiteSpace(email))
-                return BadRequest("The email is not valid!");
-
-            try
-            {
-                using (var ctx = new ListyDbContext())
-                {
-                    User user = ctx.Users.SingleOrDefault(x => x.Email == email);
-                    if (user == null)
-                        return Unauthorized();
-
-                    user.LoginDate = null;
-                    user.LastActiveDate = null;
-                    user.AuthAccessToken = null;
-                    user.AuthExpirationDate = null;
-                    ctx.SaveChanges();
-
-                    return Ok();
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
-        [HttpGet, Route("users/active")]
-        public IHttpActionResult GetActiveUsers()
-        {
-            if (!UsersController.IsAuthorized(this.Request))
-                return Unauthorized();
-
-            try
-            {
-                using (var ctx = new ListyDbContext())
-                {
-                    return Ok(ctx.Users
-                    .Where(x => (DateTime.Now - x.LastActiveDate.GetValueOrDefault(DateTime.MinValue)).Minutes < UsersController.USERS_MAX_INACTIVE_TIME)
-                    .Select(x => new Poco.User
-                    {
-                        UserId = x.UserId,
-                        Email = x.Email
-                    })
-                    .ToList());
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-
-            }
-        }
-
         #endregion
 
         #region Methods
 
-        public static bool IsAuthorized(HttpRequestMessage request)
+        private JwtSecurityToken GetAuthenticationTokenForUser(string email)
         {
-            string authAccessToken = request.GetHeaderOrDefault("Authorization");
-            if (String.IsNullOrWhiteSpace(authAccessToken))
-                return false;
-
-            using (var ctx = new ListyDbContext())
+            var claims = new Claim[]
             {
-                User user = ctx.Users.SingleOrDefault(x => x.AuthAccessToken == authAccessToken);
-                if (user == null)
-                    return false;
+                new Claim(JwtRegisteredClaimNames.Sub, email.Split('@')[0]),
+                new Claim(JwtRegisteredClaimNames.Email, email),
+            };
 
-                if (DateTime.Now > user.AuthExpirationDate)
-                    return false;
+            // The WEBSITE_AUTH_SIGNING_KEY variable will be only available when
+            // you enable App Service Authentication in your App Service from the Azure back end
+            https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-dotnet-backend-how-to-use-server-sdk/#how-to-work-with-authentication
 
-                return true;
-            }
-        }
+            var signingKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY");
+            var audience = UsersController.JWT_SECURITY_TOKEN_AUDIENCE;
+            var issuer = UsersController.JWT_SECURITY_TOKEN_ISSUER;
 
-        public static string GetRequestAuthAccessToken(HttpRequestMessage request)
-        {
-            string authAccessToken = request.GetHeaderOrDefault("Authorization");
-            return authAccessToken;
+            var token = AppServiceLoginHandler.CreateToken(
+                claims,
+                signingKey,
+                audience,
+                issuer,
+                TimeSpan.FromDays(UsersController.AUTH_TOKEN_MAX_DURATION)
+                );
+
+            return token;
         }
 
         #endregion
