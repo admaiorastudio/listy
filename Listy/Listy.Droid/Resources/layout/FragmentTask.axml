@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Jet">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/TitleLayout"
+        android:background="@color/White">
+        <ImageView
+            android:src="@drawable/icon_head"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/TitleImage"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TitleText"
+            android:background="@color/White"
+            android:layout_toRightOf="@+id/TitleImage"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:hint="Put here the title..."
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/Jet"
+            android:textColorHint="@color/Jet"
+            android:textSize="20dp"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/DescriptionLayout"
+        android:background="@color/White"
+        android:layout_below="@+id/TitleLayout"
+        android:layout_above="@+id/DueDateLayout"
+        android:layout_marginTop="1dp">
+        <ImageView
+            android:src="@drawable/icon_head"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/DescriptionImage"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="14dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/DescriptionText"
+            android:background="@color/White"
+            android:layout_toRightOf="@+id/DescriptionImage"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/Jet"
+            android:textSize="20dp"
+            android:clickable="false"
+            android:editable="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp" />
+        <TextView
+            android:text="Put some notes here..."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/HintLabel"
+            android:textSize="20dp"
+            android:layout_alignBottom="@+id/DescriptionText"
+            android:layout_alignLeft="@+id/DescriptionText"
+            android:layout_alignRight="@+id/DescriptionText"
+            android:layout_alignTop="@+id/DescriptionText"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/Jet" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/DueDateLayout"
+        android:background="@color/White"
+        android:layout_marginTop="1dp"
+        android:layout_above="@+id/TagsLayout">
+        <ImageView
+            android:src="@drawable/icon_head"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/DueDateImage"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp" />
+        <TextView
+            android:text="Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" />
+        <TextView
+            android:text="Will do in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/WillDoLabel"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/DueDateImage"
+            android:textColor="#18096B"
+            android:textSize="20dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="sans-serif-light" />
+        <Button
+            android:text="5"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:id="@+id/DaysButton"
+            android:background="@color/Snow"
+            android:layout_toRightOf="@+id/WillDoLabel"
+            android:elevation="0dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="#18096B"
+            android:textSize="30dp"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:text="days from today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DueDateLabel"
+            android:layout_toRightOf="@+id/DaysButton"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#18096B"
+            android:textSize="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/TagsLayout"
+        android:background="@color/White"
+        android:layout_marginTop="1dp"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:src="@drawable/icon_head"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/TagsImage"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/TagsText"
+            android:background="@color/White"
+            android:layout_toRightOf="@+id/TagsImage"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:hint="Tags: dinner,love,friends"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/Jet"
+            android:textColorHint="@color/Jet"
+            android:textSize="20dp"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </RelativeLayout>
+</RelativeLayout>

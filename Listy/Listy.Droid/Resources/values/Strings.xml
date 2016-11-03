@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">Listy.Droid</string>
+  <string name="fb_app_id">1111406372229015</string>
+  <string name="fb_app_name">Chatty</string>
 </resources>

@@ -7,6 +7,7 @@
         public class User
         {
             public int UserId;
+            public int FacebookId;
             public string Email;
             public string Password;
             public DateTime? LoginDate;
@@ -21,6 +22,7 @@
             public string Title;
             public string Description;
             public DateTime? CreationDate;
+            public DateTime? DueDate;
             public string Tags;
             public bool IsComplete;
             public DateTime? CompletionDate;

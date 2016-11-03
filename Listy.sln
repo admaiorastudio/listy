@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listy.Core", "Listy\Listy\Listy.Core.csproj", "{71EBDFC6-F481-4A4B-BB12-B564A255880A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3B58C0B7-BA3D-4F27-9307-977D30A9FB6F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.App.Core", "0.App.Core", "{E2B03DC2-E87D-4B30-ABD3-8F7AFCB2C72F}"
 EndProject
