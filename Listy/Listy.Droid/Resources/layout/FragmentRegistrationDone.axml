@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Snow">
+    android:background="@color/MiddleRedPurple">
     <RelativeLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -18,7 +18,7 @@
         android:layout_centerInParent="true">
         <ImageView
             android:src="@drawable/image_head1"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:id="@+id/HeadImage"
             android:adjustViewBounds="true"
@@ -26,10 +26,10 @@
             android:layout_centerHorizontal="true" />
         <TextView
             android:text="Well done! You will receive a confirmation email."
-            android:layout_width="300dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:id="@+id/WelcomeLabel"
-            android:textColor="@color/PictonBlue"
+            android:textColor="@color/Alabaster"
             android:textSize="24dp"
             android:fontFamily="sans-serif-light"
             android:layout_toRightOf="@+id/CatImage"
@@ -43,7 +43,7 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:id="@+id/GoToLoginButton"
-        android:background="@drawable/image_button2"
+        android:background="@drawable/image_button0"
         android:textColor="@color/White"
         android:textSize="20dp"
         android:fontFamily="sans-serif-light"

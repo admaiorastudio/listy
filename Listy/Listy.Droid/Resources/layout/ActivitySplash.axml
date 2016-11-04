@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Jet">
+    android:background="@color/MiddleRedPurple">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
         <ImageView
-            android:src="@drawable/image_head2"
-            android:layout_width="220dp"
+            android:src="@drawable/image_head1"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/LogoImage"
             android:adjustViewBounds="true"
@@ -22,7 +22,7 @@
             android:layout_below="@+id/LogoImage"
             android:id="@+id/TitleLabel"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/White"
+            android:textColor="@color/Alabaster"
             android:gravity="center"
             android:textSize="18dp"
             android:fontFamily="sans-serif-light"

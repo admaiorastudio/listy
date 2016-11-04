@@ -2,27 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/Jet">
+    android:background="@color/White">
     <ImageButton
-        android:src="@drawable/image_check_empty"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:src="@drawable/image_check_empty_green"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:id="@+id/CheckButton"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
+        android:layout_marginLeft="8dp"
         android:background="@null"
-        android:padding="12dp"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" />
     <TextView
-        android:text="This is the task title, that is, no frills no thrills!"
+        android:text="This is simply the task title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/TitleLabel"
         android:layout_toRightOf="@+id/CheckButton"
         android:layout_marginRight="8dp"
         android:fontFamily="sans-serif-light"
-        android:textColor="@color/White"
+        android:textColor="@color/Green"
         android:textSize="24dp"
         android:lines="1"
         android:maxLines="1"
