@@ -69,10 +69,10 @@
                 {
                     _email = this.Arguments.GetString("Email");
 
-                    var c = new ChatViewController();
-                    c.Arguments = new UIBundle();
-                    c.Arguments.PutString("Email", _email);
-                    this.ContentController.PushViewController(c, false);
+                    //var c = new ChatViewController();
+                    //c.Arguments = new UIBundle();
+                    //c.Arguments.PutString("Email", _email);
+                    //this.ContentController.PushViewController(c, false);
                 }
             }
         }

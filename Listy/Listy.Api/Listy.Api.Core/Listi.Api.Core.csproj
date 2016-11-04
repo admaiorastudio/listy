@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{953D56DE-6F29-405F-9FC2-E0B4FCBF7BA7}</ProjectGuid>
+    <ProjectGuid>{D3DD441E-8EFC-4678-97C6-7B96C14CD26B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Listy.Api.Core</RootNamespace>
-    <AssemblyName>Listy.Api.Core</AssemblyName>
+    <RootNamespace>Listi.Api.Core</RootNamespace>
+    <AssemblyName>Listi.Api.Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

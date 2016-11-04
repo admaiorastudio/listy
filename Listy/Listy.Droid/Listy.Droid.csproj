@@ -98,6 +98,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Listy.Api\Listy.Api.Core\Listi.Api.Core.csproj">
+      <Project>{d3dd441e-8efc-4678-97c6-7b96c14cd26b}</Project>
+      <Name>Listi.Api.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Listy\Listy.Core.csproj">
       <Name>Listy.Core</Name>
       <Project>{71EBDFC6-F481-4A4B-BB12-B564A255880A}</Project>
@@ -108,6 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml">

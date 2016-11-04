@@ -13,9 +13,6 @@
 
     using AdMaiora.AppKit.UI;
 
-    using Facebook.CoreKit;
-    using Facebook.LoginKit;
-
     #pragma warning disable CS4014
     public partial class LoginViewController : AdMaiora.AppKit.UI.App.UISubViewController
     {
@@ -26,8 +23,6 @@
 
         private string _email;
         private string _password;
-
-        private LoginManager _lm;
 
         // This flag check if we are already calling the login REST service
         private bool _isLogginUser;
@@ -46,12 +41,10 @@
         public LoginViewController()
             : base("LoginViewController", null)
         {
-            _lm = new LoginManager();
         }
 
         #endregion
         
-
         #region Properties
 
         #endregion
@@ -85,9 +78,7 @@
             this.PasswordText.ShouldReturn += PasswordText_ShouldReturn;
 
             this.LoginButton.TouchUpInside += LoginButton_TouchUpInside;
-
-            this.FacebookLoginButton.TouchUpInside += FacebookLoginButton_TouchUpInside;
-
+                   
             this.RegisterButton.TouchUpInside += RegisterButton_TouchUpInside;
 
             this.VerifyButton.Hidden = true;
@@ -152,81 +143,8 @@
 
             this.PasswordText.ShouldReturn -= PasswordText_ShouldReturn;
             this.LoginButton.TouchUpInside -= LoginButton_TouchUpInside;
-            this.FacebookLoginButton.TouchUpInside -= FacebookLoginButton_TouchUpInside;
             this.RegisterButton.TouchUpInside -= RegisterButton_TouchUpInside;                       
             this.VerifyButton.TouchUpInside -= VerifyButton_TouchUpInside;
-        }
-
-        #endregion
-
-        #region Facebook Methods
-
-        public void LoginRequestHandler(LoginManagerLoginResult result, NSError error)
-        {
-            if (error != null)
-            {
-                // Login Error
-                ((MainViewController)this.MainViewController).UnblockUI();
-            }
-            else if (result.IsCancelled)
-            {
-                // Login Cancelled
-                ((MainViewController)this.MainViewController).UnblockUI();
-            }
-            else
-            {
-                if (AccessToken.CurrentAccessToken == null)
-                    return;
-
-                GetFacebookData();
-            }
-        }
-
-        public void DataRequestHandler(GraphRequestConnection connection, NSObject result, NSError err)
-        {            
-            try
-            {
-                string fbId= result.ValueForKey(new NSString("id")).ToString();
-                string fbToken = AccessToken.CurrentAccessToken.TokenString;
-                string fbEmail = result.ValueForKey(new NSString("email")).ToString();
-
-                _email = fbEmail;
-
-                // Create a new cancellation token for this request                
-                _cts0 = new CancellationTokenSource();
-                AppController.LoginUser(_cts0, fbId, fbEmail, fbToken,
-                    // Service call success                 
-                    (data) =>
-                    {
-                        AppController.Settings.LastLoginUsernameUsed = _email;
-                        AppController.Settings.AuthAccessToken = data.AuthAccessToken;
-                        AppController.Settings.AuthExpirationDate = data.AuthExpirationDate.GetValueOrDefault().ToLocalTime();
-
-                        ((AppDelegate)UIApplication.SharedApplication.Delegate).RegisterToNotificationsHub();
-
-                        var c = new ChatViewController();
-                        c.Arguments = new UIBundle();
-                        c.Arguments.PutString("Email", _email);
-                        this.NavigationController.PushViewController(c, true);
-                    },
-                    // Service call error
-                    (error) =>
-                    {
-                        UIToast.MakeText(error, UIToastLength.Long).Show();
-                    },
-                    // Service call finished 
-                    () =>
-                    {
-                        // Allow user to tap views
-                        ((MainViewController)this.MainViewController).UnblockUI();
-                    });
-            }
-            catch (Exception ex)
-            {
-                ((MainViewController)this.MainViewController).UnblockUI();
-
-                UIToast.MakeText("Error", UIToastLength.Long).Show();                
-            }
         }
 
         #endregion
@@ -260,13 +178,11 @@
                         AppController.Settings.LastLoginUsernameUsed = _email;
                         AppController.Settings.AuthAccessToken = data.AuthAccessToken;
                         AppController.Settings.AuthExpirationDate = data.AuthExpirationDate.GetValueOrDefault().ToLocalTime();
-
-                        ((AppDelegate)UIApplication.SharedApplication.Delegate).RegisterToNotificationsHub();
-
-                        var c = new ChatViewController();
-                        c.Arguments = new UIBundle();
-                        c.Arguments.PutString("Email", _email);
-                        this.NavigationController.PushViewController(c, true);
+                        
+                        //var c = new ChatViewController();
+                        //c.Arguments = new UIBundle();
+                        //c.Arguments.PutString("Email", _email);
+                        //this.NavigationController.PushViewController(c, true);
                     },
                     // Service call error
                     (error) =>
@@ -347,29 +263,6 @@
             return true;
         }
 
-        private void LoginInFacebook()
-        {
-            ((MainViewController)this.MainViewController).BlockUI();
-
-            if(AccessToken.CurrentAccessToken == null)
-            {
-                _lm.LogInWithReadPermissions(new[] { "public_profile", "email" }, this, LoginRequestHandler);
-            }
-            else
-            {
-                GetFacebookData();
-            }
-        }
-
-        private void GetFacebookData()
-        {
-            GraphRequest gr = new GraphRequest("/me", null, "GET");
-            gr.Parameters.Add(NSObject.FromObject("fields"), NSObject.FromObject("id,name,email"));
-            GraphRequestConnection rc = new GraphRequestConnection();
-            rc.AddRequest(gr, DataRequestHandler);
-            rc.Start();
-        }
-
         #endregion
 
         #region Event Handlers
@@ -386,13 +279,6 @@
         private void LoginButton_TouchUpInside(object sender, EventArgs e)
         {
             LoginUser();
-
-            DismissKeyboard();
-        }
-
-        private void FacebookLoginButton_TouchUpInside(object sender, EventArgs e)
-        {
-            LoginInFacebook();
 
             DismissKeyboard();
         }

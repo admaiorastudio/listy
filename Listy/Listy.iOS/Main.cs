@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
-using UIKit;
-
-namespace Listy.iOS
+﻿namespace AdMaiora.Listy
 {
-	public class Application
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Foundation;
+    using UIKit;
+
+    public class Application
 	{
 		// This is the main entry point of the application.
 		static void Main (string[] args)
