@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Jet">
+    android:background="@color/MiddleRedPurple">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/Jet"
+        android:layout_height="wrap_content"        
         android:id="@+id/LoginLayout"
         android:layout_centerInParent="true"
         android:focusable="true"
@@ -71,21 +70,10 @@
                 android:layout_below="@+id/PasswordText"
                 android:layout_marginTop="24dp"
                 android:layout_centerHorizontal="true"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/White"
                 android:textSize="20dp"
                 android:background="@drawable/image_button0"
                 android:fontFamily="sans-serif-light" />
-            <Button
-                android:text="LOGIN WITH FACEBOOK"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:id="@+id/FacebookLoginButton"
-                android:layout_below="@+id/LoginButton"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
-                android:background="#3b5998" />
             <Button
                 android:text="I'm not registered!"
                 android:layout_width="300dp"
@@ -94,9 +82,9 @@
                 android:background="@null"
                 android:textSize="20dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_below="@+id/FacebookLoginButton"
+                android:layout_below="@+id/LoginButton"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/color_snow" />
+                android:textColor="@color/color_alabaster" />
             <Button
                 android:text="Resend confirmation email"
                 android:layout_width="300dp"
@@ -107,7 +95,7 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_below="@+id/RegisterButton"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/color_ogreodor" />
+                android:textColor="@color/color_orangeyellow" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

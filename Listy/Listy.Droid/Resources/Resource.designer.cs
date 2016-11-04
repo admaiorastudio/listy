@@ -2107,53 +2107,62 @@ namespace AdMaiora.Listy
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f07004d
+			public const int Alabaster = 2131165261;
+			
+			// aapt resource value: 0x7f07004e
+			public const int AshGray = 2131165262;
+			
 			// aapt resource value: 0x7f070050
 			public const int Black = 2131165264;
 			
-			// aapt resource value: 0x7f07004c
-			public const int Jet = 2131165260;
-			
-			// aapt resource value: 0x7f07004f
-			public const int OgreOdor = 2131165263;
+			// aapt resource value: 0x7f070052
+			public const int Green = 2131165266;
 			
 			// aapt resource value: 0x7f07004b
-			public const int PictonBlue = 2131165259;
+			public const int MiddleRedPurple = 2131165259;
 			
-			// aapt resource value: 0x7f07004d
-			public const int RomanSilver = 2131165261;
+			// aapt resource value: 0x7f070053
+			public const int Orange = 2131165267;
 			
-			// aapt resource value: 0x7f07004e
-			public const int Snow = 2131165262;
+			// aapt resource value: 0x7f07004c
+			public const int OrangeYellow = 2131165260;
+			
+			// aapt resource value: 0x7f070054
+			public const int Red = 2131165268;
+			
+			// aapt resource value: 0x7f07004f
+			public const int RichBlack = 2131165263;
 			
 			// aapt resource value: 0x7f070051
 			public const int White = 2131165265;
 			
-			// aapt resource value: 0x7f070052
-			public const int abc_background_cache_hint_selector_material_dark = 2131165266;
+			// aapt resource value: 0x7f070055
+			public const int abc_background_cache_hint_selector_material_dark = 2131165269;
 			
-			// aapt resource value: 0x7f070053
-			public const int abc_background_cache_hint_selector_material_light = 2131165267;
+			// aapt resource value: 0x7f070056
+			public const int abc_background_cache_hint_selector_material_light = 2131165270;
 			
-			// aapt resource value: 0x7f070054
-			public const int abc_color_highlight_material = 2131165268;
+			// aapt resource value: 0x7f070057
+			public const int abc_color_highlight_material = 2131165271;
 			
 			// aapt resource value: 0x7f070011
 			public const int abc_input_method_navigation_guard = 2131165201;
 			
-			// aapt resource value: 0x7f070055
-			public const int abc_primary_text_disable_only_material_dark = 2131165269;
-			
-			// aapt resource value: 0x7f070056
-			public const int abc_primary_text_disable_only_material_light = 2131165270;
-			
-			// aapt resource value: 0x7f070057
-			public const int abc_primary_text_material_dark = 2131165271;
-			
 			// aapt resource value: 0x7f070058
-			public const int abc_primary_text_material_light = 2131165272;
+			public const int abc_primary_text_disable_only_material_dark = 2131165272;
 			
 			// aapt resource value: 0x7f070059
-			public const int abc_search_url_text = 2131165273;
+			public const int abc_primary_text_disable_only_material_light = 2131165273;
+			
+			// aapt resource value: 0x7f07005a
+			public const int abc_primary_text_material_dark = 2131165274;
+			
+			// aapt resource value: 0x7f07005b
+			public const int abc_primary_text_material_light = 2131165275;
+			
+			// aapt resource value: 0x7f07005c
+			public const int abc_search_url_text = 2131165276;
 			
 			// aapt resource value: 0x7f070012
 			public const int abc_search_url_text_normal = 2131165202;
@@ -2164,11 +2173,11 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f070014
 			public const int abc_search_url_text_selected = 2131165204;
 			
-			// aapt resource value: 0x7f07005a
-			public const int abc_secondary_text_material_dark = 2131165274;
+			// aapt resource value: 0x7f07005d
+			public const int abc_secondary_text_material_dark = 2131165277;
 			
-			// aapt resource value: 0x7f07005b
-			public const int abc_secondary_text_material_light = 2131165275;
+			// aapt resource value: 0x7f07005e
+			public const int abc_secondary_text_material_light = 2131165278;
 			
 			// aapt resource value: 0x7f070015
 			public const int accent_material_dark = 2131165205;
@@ -2212,23 +2221,17 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f070022
 			public const int button_material_light = 2131165218;
 			
-			// aapt resource value: 0x7f07005c
-			public const int color_jet = 2131165276;
-			
-			// aapt resource value: 0x7f07005d
-			public const int color_ogreodor = 2131165277;
-			
-			// aapt resource value: 0x7f07005e
-			public const int color_pictonblue = 2131165278;
-			
 			// aapt resource value: 0x7f07005f
-			public const int color_snow = 2131165279;
+			public const int color_alabaster = 2131165279;
+			
+			// aapt resource value: 0x7f070060
+			public const int color_orangeyellow = 2131165280;
 			
 			// aapt resource value: 0x7f070008
 			public const int common_action_bar_splitter = 2131165192;
 			
-			// aapt resource value: 0x7f070060
-			public const int common_google_signin_btn_text_dark = 2131165280;
+			// aapt resource value: 0x7f070061
+			public const int common_google_signin_btn_text_dark = 2131165281;
 			
 			// aapt resource value: 0x7f070009
 			public const int common_google_signin_btn_text_dark_default = 2131165193;
@@ -2242,8 +2245,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f07000a
 			public const int common_google_signin_btn_text_dark_pressed = 2131165194;
 			
-			// aapt resource value: 0x7f070061
-			public const int common_google_signin_btn_text_light = 2131165281;
+			// aapt resource value: 0x7f070062
+			public const int common_google_signin_btn_text_light = 2131165282;
 			
 			// aapt resource value: 0x7f07000d
 			public const int common_google_signin_btn_text_light_default = 2131165197;
@@ -2257,8 +2260,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f07000e
 			public const int common_google_signin_btn_text_light_pressed = 2131165198;
 			
-			// aapt resource value: 0x7f070062
-			public const int common_plus_signin_btn_text_dark = 2131165282;
+			// aapt resource value: 0x7f070063
+			public const int common_plus_signin_btn_text_dark = 2131165283;
 			
 			// aapt resource value: 0x7f070000
 			public const int common_plus_signin_btn_text_dark_default = 2131165184;
@@ -2272,8 +2275,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f070001
 			public const int common_plus_signin_btn_text_dark_pressed = 2131165185;
 			
-			// aapt resource value: 0x7f070063
-			public const int common_plus_signin_btn_text_light = 2131165283;
+			// aapt resource value: 0x7f070064
+			public const int common_plus_signin_btn_text_light = 2131165284;
 			
 			// aapt resource value: 0x7f070004
 			public const int common_plus_signin_btn_text_light_default = 2131165188;
@@ -2401,11 +2404,11 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f070048
 			public const int switch_thumb_disabled_material_light = 2131165256;
 			
-			// aapt resource value: 0x7f070064
-			public const int switch_thumb_material_dark = 2131165284;
-			
 			// aapt resource value: 0x7f070065
-			public const int switch_thumb_material_light = 2131165285;
+			public const int switch_thumb_material_dark = 2131165285;
+			
+			// aapt resource value: 0x7f070066
+			public const int switch_thumb_material_light = 2131165286;
 			
 			// aapt resource value: 0x7f070049
 			public const int switch_thumb_normal_material_dark = 2131165257;
@@ -3028,40 +3031,52 @@ namespace AdMaiora.Listy
 			public const int Icon = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int icon_head = 2130837622;
+			public const int icon_calendar = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int image_button0 = 2130837623;
+			public const int icon_head = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int image_button1 = 2130837624;
+			public const int icon_tags = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int image_button2 = 2130837625;
+			public const int icon_title = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int image_button3 = 2130837626;
+			public const int image_button0 = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int image_callout = 2130837627;
+			public const int image_button1 = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int image_check_empty = 2130837628;
+			public const int image_check_empty_green = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int image_check_selected = 2130837629;
+			public const int image_check_empty_orange = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int image_head = 2130837630;
+			public const int image_check_empty_red = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int image_head1 = 2130837631;
+			public const int image_check_selected_green = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int image_head2 = 2130837632;
+			public const int image_check_selected_orange = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int notification_template_icon_bg = 2130837633;
+			public const int image_check_selected_red = 2130837633;
+			
+			// aapt resource value: 0x7f020082
+			public const int image_head = 2130837634;
+			
+			// aapt resource value: 0x7f020083
+			public const int image_head1 = 2130837635;
+			
+			// aapt resource value: 0x7f020084
+			public const int image_head2 = 2130837636;
+			
+			// aapt resource value: 0x7f020085
+			public const int notification_template_icon_bg = 2130837637;
 			
 			static Drawable()
 			{
@@ -3076,8 +3091,8 @@ namespace AdMaiora.Listy
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f090073
-			public const int CatImage = 2131296371;
+			// aapt resource value: 0x7f090072
+			public const int CatImage = 2131296370;
 			
 			// aapt resource value: 0x7f090063
 			public const int CheckButton = 2131296355;
@@ -3088,11 +3103,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090081
 			public const int DaysButton = 2131296385;
 			
-			// aapt resource value: 0x7f09007a
-			public const int DescriptionImage = 2131296378;
-			
-			// aapt resource value: 0x7f090078
-			public const int DescriptionLayout = 2131296376;
+			// aapt resource value: 0x7f090077
+			public const int DescriptionLayout = 2131296375;
 			
 			// aapt resource value: 0x7f09007b
 			public const int DescriptionText = 2131296379;
@@ -3100,26 +3112,23 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f09007e
 			public const int DueDateImage = 2131296382;
 			
-			// aapt resource value: 0x7f090082
-			public const int DueDateLabel = 2131296386;
+			// aapt resource value: 0x7f090080
+			public const int DueDateLabel = 2131296384;
 			
-			// aapt resource value: 0x7f090079
-			public const int DueDateLayout = 2131296377;
+			// aapt resource value: 0x7f090078
+			public const int DueDateLayout = 2131296376;
 			
-			// aapt resource value: 0x7f09006d
-			public const int EmailLabel = 2131296365;
+			// aapt resource value: 0x7f09006c
+			public const int EmailLabel = 2131296364;
 			
 			// aapt resource value: 0x7f090067
 			public const int EmailText = 2131296359;
 			
-			// aapt resource value: 0x7f09006a
-			public const int FacebookLoginButton = 2131296362;
+			// aapt resource value: 0x7f090073
+			public const int GoToLoginButton = 2131296371;
 			
-			// aapt resource value: 0x7f090074
-			public const int GoToLoginButton = 2131296372;
-			
-			// aapt resource value: 0x7f09006e
-			public const int HeadImage = 2131296366;
+			// aapt resource value: 0x7f09006d
+			public const int HeadImage = 2131296365;
 			
 			// aapt resource value: 0x7f09007c
 			public const int HintLabel = 2131296380;
@@ -3142,59 +3151,62 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090060
 			public const int LogoImage = 2131296352;
 			
-			// aapt resource value: 0x7f09006f
-			public const int PasswordLabel = 2131296367;
+			// aapt resource value: 0x7f09006e
+			public const int PasswordLabel = 2131296366;
 			
 			// aapt resource value: 0x7f090068
 			public const int PasswordText = 2131296360;
 			
-			// aapt resource value: 0x7f09006b
-			public const int RegisterButton = 2131296363;
+			// aapt resource value: 0x7f09006a
+			public const int RegisterButton = 2131296362;
 			
-			// aapt resource value: 0x7f090083
-			public const int TagsImage = 2131296387;
+			// aapt resource value: 0x7f09007a
+			public const int SideBar = 2131296378;
+			
+			// aapt resource value: 0x7f090082
+			public const int TagsImage = 2131296386;
 			
 			// aapt resource value: 0x7f09007d
 			public const int TagsLayout = 2131296381;
 			
-			// aapt resource value: 0x7f090084
-			public const int TagsText = 2131296388;
+			// aapt resource value: 0x7f090083
+			public const int TagsText = 2131296387;
 			
 			// aapt resource value: 0x7f090064
 			public const int TaskList = 2131296356;
 			
-			// aapt resource value: 0x7f090076
-			public const int TitleImage = 2131296374;
+			// aapt resource value: 0x7f090075
+			public const int TitleImage = 2131296373;
 			
 			// aapt resource value: 0x7f090061
 			public const int TitleLabel = 2131296353;
 			
-			// aapt resource value: 0x7f090075
-			public const int TitleLayout = 2131296373;
+			// aapt resource value: 0x7f090074
+			public const int TitleLayout = 2131296372;
 			
-			// aapt resource value: 0x7f090077
-			public const int TitleText = 2131296375;
+			// aapt resource value: 0x7f090076
+			public const int TitleText = 2131296374;
 			
 			// aapt resource value: 0x7f09005c
 			public const int Toolbar = 2131296348;
 			
-			// aapt resource value: 0x7f09006c
-			public const int VerifyButton = 2131296364;
+			// aapt resource value: 0x7f09006b
+			public const int VerifyButton = 2131296363;
 			
 			// aapt resource value: 0x7f090062
 			public const int VersionLabel = 2131296354;
 			
-			// aapt resource value: 0x7f090072
-			public const int WelcomeLabel = 2131296370;
-			
 			// aapt resource value: 0x7f090071
-			public const int WelcomeLayout = 2131296369;
+			public const int WelcomeLabel = 2131296369;
 			
-			// aapt resource value: 0x7f090080
-			public const int WillDoLabel = 2131296384;
+			// aapt resource value: 0x7f090070
+			public const int WelcomeLayout = 2131296368;
 			
-			// aapt resource value: 0x7f090085
-			public const int action0 = 2131296389;
+			// aapt resource value: 0x7f09007f
+			public const int WillDoLabel = 2131296383;
+			
+			// aapt resource value: 0x7f090084
+			public const int action0 = 2131296388;
 			
 			// aapt resource value: 0x7f09004d
 			public const int action_bar = 2131296333;
@@ -3220,8 +3232,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f09004e
 			public const int action_context_bar = 2131296334;
 			
-			// aapt resource value: 0x7f090089
-			public const int action_divider = 2131296393;
+			// aapt resource value: 0x7f090088
+			public const int action_divider = 2131296392;
 			
 			// aapt resource value: 0x7f090003
 			public const int action_menu_divider = 2131296259;
@@ -3262,14 +3274,14 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090037
 			public const int buttonPanel = 2131296311;
 			
-			// aapt resource value: 0x7f090086
-			public const int cancel_action = 2131296390;
+			// aapt resource value: 0x7f090085
+			public const int cancel_action = 2131296389;
 			
 			// aapt resource value: 0x7f090045
 			public const int checkbox = 2131296325;
 			
-			// aapt resource value: 0x7f09008c
-			public const int chronometer = 2131296396;
+			// aapt resource value: 0x7f09008b
+			public const int chronometer = 2131296395;
 			
 			// aapt resource value: 0x7f09002a
 			public const int clamp = 2131296298;
@@ -3304,8 +3316,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090023
 			public const int end = 2131296291;
 			
-			// aapt resource value: 0x7f090091
-			public const int end_padder = 2131296401;
+			// aapt resource value: 0x7f090090
+			public const int end_padder = 2131296400;
 			
 			// aapt resource value: 0x7f090031
 			public const int expand_activities_button = 2131296305;
@@ -3331,8 +3343,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090032
 			public const int image = 2131296306;
 			
-			// aapt resource value: 0x7f090090
-			public const int info = 2131296400;
+			// aapt resource value: 0x7f09008f
+			public const int info = 2131296399;
 			
 			// aapt resource value: 0x7f090000
 			public const int item_touch_helper_previous_elevation = 2131296256;
@@ -3340,11 +3352,11 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090012
 			public const int light = 2131296274;
 			
-			// aapt resource value: 0x7f09008a
-			public const int line1 = 2131296394;
+			// aapt resource value: 0x7f090089
+			public const int line1 = 2131296393;
 			
-			// aapt resource value: 0x7f09008e
-			public const int line3 = 2131296398;
+			// aapt resource value: 0x7f09008d
+			public const int line3 = 2131296397;
 			
 			// aapt resource value: 0x7f090013
 			public const int listMode = 2131296275;
@@ -3352,8 +3364,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090034
 			public const int list_item = 2131296308;
 			
-			// aapt resource value: 0x7f090088
-			public const int media_actions = 2131296392;
+			// aapt resource value: 0x7f090087
+			public const int media_actions = 2131296391;
 			
 			// aapt resource value: 0x7f090024
 			public const int middle = 2131296292;
@@ -3385,8 +3397,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090047
 			public const int radio = 2131296327;
 			
-			// aapt resource value: 0x7f090070
-			public const int relativeLayout2 = 2131296368;
+			// aapt resource value: 0x7f09006f
+			public const int relativeLayout2 = 2131296367;
 			
 			// aapt resource value: 0x7f09002c
 			public const int repeat = 2131296300;
@@ -3466,8 +3478,8 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f09000e
 			public const int standard = 2131296270;
 			
-			// aapt resource value: 0x7f090087
-			public const int status_bar_latest_event_content = 2131296391;
+			// aapt resource value: 0x7f090086
+			public const int status_bar_latest_event_content = 2131296390;
 			
 			// aapt resource value: 0x7f090058
 			public const int submit_area = 2131296344;
@@ -3475,20 +3487,17 @@ namespace AdMaiora.Listy
 			// aapt resource value: 0x7f090015
 			public const int tabMode = 2131296277;
 			
-			// aapt resource value: 0x7f09008f
-			public const int text = 2131296399;
+			// aapt resource value: 0x7f09008e
+			public const int text = 2131296398;
 			
-			// aapt resource value: 0x7f09008d
-			public const int text2 = 2131296397;
+			// aapt resource value: 0x7f09008c
+			public const int text2 = 2131296396;
 			
 			// aapt resource value: 0x7f090040
 			public const int textSpacerNoButtons = 2131296320;
 			
-			// aapt resource value: 0x7f09007f
-			public const int textView2 = 2131296383;
-			
-			// aapt resource value: 0x7f09008b
-			public const int time = 2131296395;
+			// aapt resource value: 0x7f09008a
+			public const int time = 2131296394;
 			
 			// aapt resource value: 0x7f090036
 			public const int title = 2131296310;
@@ -3504,6 +3513,9 @@ namespace AdMaiora.Listy
 			
 			// aapt resource value: 0x7f09001b
 			public const int useLogo = 2131296283;
+			
+			// aapt resource value: 0x7f090079
+			public const int view2 = 2131296377;
 			
 			// aapt resource value: 0x7f09000f
 			public const int wide = 2131296271;
