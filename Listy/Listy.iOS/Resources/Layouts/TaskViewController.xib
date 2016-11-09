@@ -44,7 +44,7 @@
                                 <constraint firstAttribute="height" constant="30" id="DO5-Od-KLb"/>
                             </constraints>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                     </subviews>
@@ -106,7 +106,7 @@
                                 <constraint firstAttribute="height" constant="21" id="Lxi-n8-Zq0"/>
                                 <constraint firstAttribute="width" constant="85" id="nlg-aR-mk8"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -114,7 +114,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="OH5-Z8-x6L"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -131,14 +131,14 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="b6G-m4-uDy" firstAttribute="leading" secondItem="4U3-sv-i8m" secondAttribute="trailing" constant="-6" id="7O8-Tz-Iwr"/>
-                        <constraint firstItem="4U3-sv-i8m" firstAttribute="leading" secondItem="FmH-9n-fzI" secondAttribute="trailing" constant="-10" id="Cw2-Lf-eqB"/>
+                        <constraint firstItem="b6G-m4-uDy" firstAttribute="leading" secondItem="4U3-sv-i8m" secondAttribute="trailing" constant="-5" id="7O8-Tz-Iwr"/>
+                        <constraint firstItem="4U3-sv-i8m" firstAttribute="leading" secondItem="FmH-9n-fzI" secondAttribute="trailing" constant="-17" id="Cw2-Lf-eqB"/>
                         <constraint firstItem="b6G-m4-uDy" firstAttribute="centerY" secondItem="qnB-aQ-1B1" secondAttribute="centerY" id="Goo-QG-or4"/>
                         <constraint firstItem="FmH-9n-fzI" firstAttribute="leading" secondItem="PQk-3o-uiO" secondAttribute="trailing" constant="8" id="L8m-yp-EEw"/>
                         <constraint firstAttribute="height" constant="60" id="Mwz-Yg-nl8"/>
                         <constraint firstItem="PQk-3o-uiO" firstAttribute="leading" secondItem="qnB-aQ-1B1" secondAttribute="leading" constant="8" id="QlN-Rb-QYK"/>
                         <constraint firstItem="4U3-sv-i8m" firstAttribute="centerY" secondItem="qnB-aQ-1B1" secondAttribute="centerY" id="Vaw-VL-UGU"/>
-                        <constraint firstAttribute="trailing" secondItem="b6G-m4-uDy" secondAttribute="trailing" constant="5" id="fPF-AJ-oFX"/>
+                        <constraint firstAttribute="trailing" secondItem="b6G-m4-uDy" secondAttribute="trailing" constant="11" id="fPF-AJ-oFX"/>
                         <constraint firstItem="FmH-9n-fzI" firstAttribute="centerY" secondItem="qnB-aQ-1B1" secondAttribute="centerY" id="qL5-Bg-dY8"/>
                         <constraint firstItem="PQk-3o-uiO" firstAttribute="centerY" secondItem="qnB-aQ-1B1" secondAttribute="centerY" id="zz6-eC-ZQM"/>
                     </constraints>
@@ -156,7 +156,7 @@
                                 <constraint firstAttribute="height" constant="30" id="a1T-kZ-LnH"/>
                             </constraints>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                     </subviews>
