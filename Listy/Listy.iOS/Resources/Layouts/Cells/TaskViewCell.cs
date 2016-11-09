@@ -3,7 +3,7 @@
 using Foundation;
 using UIKit;
 
-namespace AdMaiora.Listy.Resources.Layouts.Cells
+namespace AdMaiora.Listy
 {
     public partial class TaskViewCell : UITableViewCell
     {

@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.App.Core", "0.App.Core", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.App.UI", "1.App.UI", "{516DAFB5-7210-4957-8E96-5C2CECA700E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listi.Api.Core", "Listy\Listy.Api\Listy.Api.Core\Listi.Api.Core.csproj", "{D3DD441E-8EFC-4678-97C6-7B96C14CD26B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listy.Api.Core", "Listy\Listy.Api\Listy.Api.Core\Listy.Api.Core.csproj", "{D3DD441E-8EFC-4678-97C6-7B96C14CD26B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

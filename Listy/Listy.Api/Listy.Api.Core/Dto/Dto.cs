@@ -22,7 +22,7 @@
             public string Title;
             public string Description;
             public DateTime? CreationDate;
-            public DateTime? DueDate;
+            public int WillDoIn;
             public string Tags;
             public bool IsComplete;
             public DateTime? CompletionDate;

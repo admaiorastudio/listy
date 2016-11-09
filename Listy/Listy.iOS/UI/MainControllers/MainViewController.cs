@@ -19,7 +19,7 @@
         #region Constants and Fields
 
         private bool _userRestored;
-        private string _email;
+        private int _userId;
 
         #endregion
 
@@ -50,7 +50,7 @@
 
             SetContentView(this.ContentLayout);
 
-            UINavigationBar.Appearance.BarTintColor = ViewBuilder.ColorFromARGB(AppController.Colors.PictonBlue);
+            UINavigationBar.Appearance.BarTintColor = ViewBuilder.ColorFromARGB(AppController.Colors.OrangeYellow);
             UINavigationBar.Appearance.TintColor = ViewBuilder.ColorFromARGB(AppController.Colors.White);
             UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = ViewBuilder.ColorFromARGB(AppController.Colors.White) });
 
@@ -67,12 +67,12 @@
                 _userRestored = this.Arguments.GetBoolean("UserRestored");
                 if (_userRestored)
                 {
-                    _email = this.Arguments.GetString("Email");
+                    _userId = this.Arguments.GetInt("UserId");
 
-                    //var c = new ChatViewController();
-                    //c.Arguments = new UIBundle();
-                    //c.Arguments.PutString("Email", _email);
-                    //this.ContentController.PushViewController(c, false);
+                    var c = new AgendaViewController();
+                    c.Arguments = new UIBundle();
+                    c.Arguments.PutInt("UserId", _userId);
+                    this.ContentController.PushViewController(c, false);
                 }
             }
         }

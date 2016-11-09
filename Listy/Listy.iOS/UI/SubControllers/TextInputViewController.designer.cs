@@ -9,25 +9,33 @@ using System.CodeDom.Compiler;
 
 namespace AdMaiora.Listy
 {
-	[Register ("TaskViewCell")]
-	partial class TaskViewCell
+	[Register ("TextInputViewController")]
+	partial class TextInputViewController
 	{
 		[Outlet]
-		public UIKit.UIButton CheckButton { get; set; }
+		UIKit.UITextView InputText { get; set; }
 
 		[Outlet]
-		public UIKit.UILabel TitleLabel { get; set; }
+		UIKit.UIImageView TitleImage { get; set; }
+
+		[Outlet]
+		UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (CheckButton != null) {
-				CheckButton.Dispose ();
-				CheckButton = null;
+			if (InputText != null) {
+				InputText.Dispose ();
+				InputText = null;
 			}
 
 			if (TitleLabel != null) {
 				TitleLabel.Dispose ();
 				TitleLabel = null;
+			}
+
+			if (TitleImage != null) {
+				TitleImage.Dispose ();
+				TitleImage = null;
 			}
 		}
 	}

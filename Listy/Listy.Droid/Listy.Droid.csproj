@@ -107,9 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Listy.Api\Listy.Api.Core\Listi.Api.Core.csproj">
+    <ProjectReference Include="..\Listy.Api\Listy.Api.Core\Listy.Api.Core.csproj">
       <Project>{d3dd441e-8efc-4678-97c6-7b96c14cd26b}</Project>
-      <Name>Listi.Api.Core</Name>
+      <Name>Listy.Api.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Listy\Listy.Core.csproj">
       <Name>Listy.Core</Name>

@@ -8,7 +8,7 @@ namespace AdMaiora.Listy
     using Foundation;
     using UIKit;
 
-    public partial class _ViewController : UIViewController
+    public partial class _ViewController : AdMaiora.AppKit.UI.App.UIMainViewController
     {
         #region Inner Classes
         #endregion

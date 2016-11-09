@@ -1,27 +1,57 @@
 ﻿namespace AdMaiora.Listy
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Foundation;
     using UIKit;
+
+    using AdMaiora.AppKit;
+    using AdMaiora.AppKit.UI;    
 
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
     [Register ("AppDelegate")]
-	public class AppDelegate : UIApplicationDelegate
-	{
-		// class-level declarations
+	public class AppDelegate : UIAppKitApplicationDelegate
+    {
+        #region Constants and Fields
+        #endregion
 
-		public override UIWindow Window
+        #region Constructors
+
+        public AppDelegate()
+        {
+
+        }
+
+        #endregion
+
+        #region Properties
+
+        public override UIWindow Window
         {
 			get;
 			set;
 		}
 
-		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
+        #endregion
+
+        #region Application Methods
+
+        public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			// Override point for customization after application launch.
-			// If not required for your application you can safely delete this method
-			return true;
-		}
+            // Setup Application
+            AppController.EnableSettings(new AdMaiora.AppKit.Data.UserSettingsPlatformiOS());
+            AppController.EnableUtilities(new AdMaiora.AppKit.Utils.ExecutorPlatformiOS());
+            AppController.EnableFileSystem(new AdMaiora.AppKit.IO.FileSystemPlatformiOS());
+            AppController.EnableDataStorage(new AdMaiora.AppKit.Data.DataStoragePlatformiOS());
+            AppController.EnableServices(new AdMaiora.AppKit.Services.ServiceClientPlatformiOS());
+
+            // Override point for customization after application launch.
+            // If not required for your application you can safely delete this method
+            return RegisterMainLauncher(new SplashViewController(), launchOptions);
+        }
 
 		public override void OnResignActivation (UIApplication application)
 		{
@@ -53,7 +83,9 @@
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
-	}
+
+        #endregion
+    }
 }
 
 

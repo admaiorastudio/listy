@@ -1,17 +1,21 @@
 ﻿namespace AdMaiora.Listy
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Threading;
+    using System.Linq;
 
     using RestSharp.Portable;
 
     using AdMaiora.AppKit.Utils;
     using AdMaiora.AppKit.Data;
     using AdMaiora.AppKit.Services;
+    using AdMaiora.AppKit.IO;
 
     using AdMaiora.Listy.Api;
-
+    using AdMaiora.Listy.Model;
+   
     public class PushEventArgs : EventArgs
     {
         public int Action
@@ -41,6 +45,20 @@
         public PushEventArgs(Exception error)
         {
             this.Error = error;
+        }
+    }
+
+    public class TextInputDoneEventArgs : EventArgs
+    {
+        public TextInputDoneEventArgs(string text)
+        {
+            this.Text = text;
+        }
+
+        public string Text
+        {
+            get;
+            private set;
         }
     }
 
@@ -123,6 +141,9 @@
             // Splash screen timeout (milliseconds)
             public const int SplashScreenTimeout = 2000;
 
+            // Data storage file uri
+            public const string DatabaseFilePath = "internal://database.db3";
+
             // Base URL for service client endpoints
             public const string ServicesBaseUrl = "https://listy-api.azurewebsites.net/";            
             // Default service client timeout in seconds
@@ -131,19 +152,24 @@
 
         public static class Colors
         {
-            public const string PictonBlue = "30BCED";
-            public const string Jet = "303036";
-            public const string RomanSilver = "858596";
-            public const string Snow = "FFFAFF";
-            public const string OgreOdor = "FC5130";
+            public const string MiddleRedPurple = "160C28";
+            public const string OrangeYellow = "EFCB68";
+            public const string Alabaster = "E1EFE6";
+            public const string AshGray = "AEB7B3"; 
+            public const string RichBlack = "000411";
             public const string Black = "000000";
             public const string White = "FFFFFF";
+            public const string Green = "00A454";
+            public const string Orange = "ED7218";
+            public const string Red = "D01818";
         }
 
         private static AppSettings _settings;
 
         private static Executor _utility;
-        private static ServiceClient _services;
+        private static FileSystem _filesystem;
+        private static DataStorage _database;
+        private static ServiceClient _services;        
 
         #endregion
 
@@ -197,9 +223,20 @@
             _settings = new AppSettings(new UserSettings(userSettingsPlatform));
         }
 
-        public static void EnableUtilities(IExecutorPlatform utiltiyPlatform)
+        public static void EnableUtilities(IExecutorPlatform utilityPlatform)
         {
-            _utility = new Executor(utiltiyPlatform);
+            _utility = new Executor(utilityPlatform);
+        }
+
+        public static void EnableFileSystem(IFileSystemPlatform fileSystemPlatform)
+        {
+            _filesystem = new FileSystem(fileSystemPlatform);
+        }
+    
+        public static void EnableDataStorage(IDataStoragePlatform sqlitePlatform)
+        {
+            FileUri storageUri = _filesystem.CreateFileUri(AppController.Globals.DatabaseFilePath);
+            _database = new DataStorage(sqlitePlatform, storageUri);
         }
 
         public static void EnableServices(IServiceClientPlatform servicePlatform)
@@ -239,27 +276,23 @@
                     });
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    if (success != null)
-                        success(response.Data.Content);
+                {                    
+                    success?.Invoke(response.Data.Content);
                 }
                 else
-                {
-                    if (error != null)
-                        error(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
-                
-                if (error != null)
-                    error("Internal error :(");
+                                
+                error?.Invoke("Internal error :(");
             }
             finally
-            {
-                if (finished != null)
-                    finished();                
+            {                
+                finished?.Invoke();                
             }
         }
 
@@ -295,85 +328,23 @@
 
                     // Refresh access token for further service calls
                     _services.RefreshAccessToken(accessToken, accessExpirationDate);
-
-                    if (success != null)
-                        success(response.Data.Content);
+                    
+                    success?.Invoke(response.Data.Content);
                 }
                 else
-                {
-                    if (error != null)
-                        error(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                if (error != null)
-                    error("Internal error :(");
+                
+                error?.Invoke("Internal error :(");
             }
             finally
-            {
-                if (finished != null)
-                    finished();
-            }
-        }
-
-        public static async Task LoginUser(CancellationTokenSource cts,
-            string fbId,
-            string fbEmail,
-            string fbToken,            
-            Action<Poco.User> success,
-            Action<string> error,
-            Action finished)
-        {
-            try
-            {
-                var response = await _services.Request<Dto.Response<Poco.User>>(
-                    // Resource to call
-                    "users/login/fb",
-                    // HTTP method
-                    Method.POST,
-                    // Cancellation token
-                    cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
-                    new
-                    {
-                        UserId = fbId,
-                        Email = fbEmail,
-                        Token = fbToken
-                    });
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    string accessToken = response.Data.Content.AuthAccessToken;
-                    DateTime accessExpirationDate = response.Data.Content.AuthExpirationDate.GetValueOrDefault().ToLocalTime();
-
-                    // Refresh access token for further service calls
-                    _services.RefreshAccessToken(accessToken, accessExpirationDate);
-
-                    if (success != null)
-                        success(response.Data.Content);
-                }
-                else
-                {
-                    if (error != null)
-                        error(response.Data.ExceptionMessage ?? response.StatusDescription);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                if (error != null)
-                    error("Internal error :(");
-            }
-            finally
-            {
-                if (finished != null)
-                    finished();
+            {                
+                finished?.Invoke();
             }
         }
 
@@ -403,28 +374,23 @@
                     });
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-
-                    if (success != null)
-                        success();
+                {                    
+                    success?.Invoke();
                 }
                 else
-                {
-                    if (error != null)
-                        error(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                if (error != null)
-                    error("Internal error :(");
+                
+                error?.Invoke("Internal error :(");
             }
             finally
-            {
-                if (finished != null)
-                    finished();
+            {                
+                finished?.Invoke();
             }
         }
 
@@ -457,150 +423,356 @@
 
                     // Refresh access token for further service calls
                     _services.RefreshAccessToken(accessToken, accessExpirationDate);
-
-                    if (success != null)
-                        success(response.Data.Content);
+                    
+                    success?.Invoke(response.Data.Content);
                 }
                 else
-                {
-                    if (error != null)
-                        error(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
 
-                if (error != null)
-                    error("Internal error :(");
+                error?.Invoke("Internal error :(");
             }
             finally
-            {
-                if (finished != null)
-                    finished();
+            {                
+                finished?.Invoke();
             }
         }
 
         #endregion
 
-        #region Messages Methods
+        #region Tasks Methods
 
-        //public static async Task SendMessage(CancellationTokenSource cts,
-        //    string sender,
-        //    string content,
-        //    Action<Poco.Message> success,
-        //    Action<string> error,
-        //    Action finished)
-        //{
-        //    // Create the rest client
-        //    var client = _services.GetRestClient();
-        //    // Create the rest request
-        //    var request = _services.GetRestRequest(
-        //        // Resource to call
-        //        "messages/send",
-        //        // HTTP method
-        //        Method.POST,
-        //        // Content Type,
-        //        RequestContentType.ApplicationJson,
-        //        // Parameters as anonymous object. Will be jsonized
-        //        new
-        //        {
-        //            sender = sender,
-        //            content = content
-        //        });
+        public static async Task AddTodoItem(CancellationTokenSource cts,
+            int userId,
+            string title,
+            string description,
+            int willDoIn,
+            string tags,
+            Action<TodoItem> success,
+            Action<string> error,
+            Action finished)
+        {
+            try
+            {
+                var response = await _services.Request<Dto.Response<Poco.TodoItem>>(
+                    // Resource to call
+                    "todo/addnew",
+                    // HTTP method
+                    Method.POST,
+                    // Cancellation token
+                    cts.Token,
+                    // Content Type,
+                    RequestContentType.ApplicationJson,
+                    // Payload
+                    new
+                    {
+                        UserId = userId,
+                        Title = title,
+                        Description = description,
+                        WillDoIn = willDoIn,
+                        Tags = tags
+                    });
 
-        //    try
-        //    {
-        //        var response = await _services.Request<Dto.Response<Poco.Message>>(
-        //            // Resource to call
-        //            "messages/send",
-        //            // HTTP method
-        //            Method.POST,
-        //            // Cancellation token
-        //            cts.Token,
-        //            // Content Type,
-        //            RequestContentType.ApplicationJson,
-        //            // Payload
-        //            new
-        //            {
-        //                sender = sender,
-        //                content = content
-        //            });
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var x = response.Data.Content;
+                    TodoItem todoItem = new TodoItem
+                    {
+                        TodoItemId = x.TodoItemId,
+                        UserId = x.UserId,
+                        Title = x.Title,
+                        Description = x.Description,
+                        CreationDate = x.CreationDate?.ToLocalTime(),
+                        WillDoIn = x.WillDoIn,
+                        Tags = x.Tags,
+                        IsComplete = x.IsComplete,
+                        CompletionDate = x.CompletionDate?.ToLocalTime()
+                    };
+
+                    _database.Insert(todoItem);
+
+                    success?.Invoke(todoItem);
+                }
+                else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    error?.Invoke("You must login again!");
+                }
+                else
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
                 
-        //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        //        {
-        //            if (success != null)
-        //                success(response.Data.Content);
-        //        }
-        //        else
-        //        {
-        //            if (error != null)
-        //                error(response.Data.ExceptionMessage ?? response.StatusDescription);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(ex.ToString());
+                error?.Invoke("Internal error :(");
+            }
+            finally
+            {                
+                finished?.Invoke();
+            }
+        }
 
-        //        if (error != null)
-        //            error("Internal error :(");
-        //    }
-        //    finally
-        //    {
-        //        if (finished != null)
-        //            finished();
-        //    }
-        //}
+        public static async Task UpdateTodoItem(CancellationTokenSource cts,
+            int todoItemId,
+            string title,
+            string description,
+            int willDoIn,
+            string tags,
+            Action<TodoItem> success,
+            Action<string> error,
+            Action finished)
+        {
+            try
+            {
+                var response = await _services.Request<Dto.Response<Poco.TodoItem>>(
+                    // Resource to call
+                    "todo/update",
+                    // HTTP method
+                    Method.GET,
+                    // Cancellation token
+                    cts.Token,
+                    // Content Type,
+                    RequestContentType.ApplicationJson,
+                    // Payload
+                    new
+                    {
+                        TodoItemId = todoItemId,
+                        Title = title,
+                        Description = description,
+                        WillDoIn = willDoIn,
+                        Tags = tags
+                    });
 
-        //public static async Task RefreshMessages(CancellationTokenSource cts,
-        //    int lastMessageId,
-        //    string me,
-        //    Action<Poco.Bulk> success,
-        //    Action<string> error,
-        //    Action finished)
-        //{
-        //    try
-        //    {
-        //        var response = await _services.Request<Dto.Response<Poco.Bulk>>(
-        //            // Resource to call
-        //            "messages/new",
-        //            // HTTP method
-        //            Method.GET,
-        //            // Cancellation token
-        //            cts.Token,
-        //            // Content Type,
-        //            RequestContentType.ApplicationJson,
-        //            // Payload
-        //            new
-        //            {
-        //                lastMessageId = lastMessageId,
-        //                me = me
-        //            });
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    TodoItem todoItem = null;
+                    _database.RunInTransaction(t =>
+                        {
+                            var i = response.Data.Content;
+                            todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
+                            todoItem.Title = i.Title;
+                            todoItem.Description = i.Description;
+                            todoItem.WillDoIn = i.WillDoIn;
+                            todoItem.Tags = tags;
+
+                            t.Update(todoItem);
+                        });
+                    
+                    success?.Invoke(todoItem);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    error?.Invoke("You must login again!");
+                }
+                else
+                {
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                error?.Invoke("Internal error :(");
+            }
+            finally
+            {
+                finished?.Invoke();
+            }
+        }
+
+        public static async Task CompleteTodoItem(CancellationTokenSource cts,
+            int todoItemId,
+            bool complete,
+            Action<TodoItem> success,
+            Action<string> error,
+            Action finished)
+        {
+            try
+            {
+                var response = await _services.Request<Dto.Response<Poco.TodoItem>>(
+                    // Resource to call
+                    complete ? "todo/update" : "todo/uncomplete",
+                    // HTTP method
+                    Method.GET,
+                    // Cancellation token
+                    cts.Token,
+                    // Content Type,
+                    RequestContentType.ApplicationJson,
+                    // Payload
+                    new
+                    {
+                        itemId = todoItemId
+                    });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {                    
+                    TodoItem todoItem = null;
+                    _database.RunInTransaction(t =>
+                    {
+                        var i = response.Data.Content;
+                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
+                        todoItem.IsComplete = i.IsComplete;
+                        todoItem.CompletionDate = i.CompletionDate;
+
+                        _database.Update(todoItem);
+                    });
+
+
+                    success?.Invoke(todoItem);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    error?.Invoke("You must login again!");
+                }
+                else
+                {
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                error?.Invoke("Internal error :(");
+            }
+            finally
+            {
+                finished?.Invoke();
+            }
+        }
+
+        public static async Task DeleteTodoItem(CancellationTokenSource cts,
+            int todoItemId,
+            Action success,
+            Action<string> error,
+            Action finished)
+        {
+            try
+            {
+                var response = await _services.Request<Dto.Response<Poco.TodoItem>>(
+                    // Resource to call
+                    "todo/delete",
+                    // HTTP method
+                    Method.GET,
+                    // Cancellation token
+                    cts.Token,
+                    // Content Type,
+                    RequestContentType.ApplicationJson,
+                    // Payload
+                    new
+                    {
+                        itemId = todoItemId,
+                    });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    TodoItem todoItem = null;
+                    _database.RunInTransaction(t =>
+                    {                        
+                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
+                        _database.Delete(todoItem);
+                    });
+
+                    success?.Invoke();
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    error?.Invoke("You must login again!");
+                }
+                else
+                {
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                error?.Invoke("Internal error :(");
+            }
+            finally
+            {
+                finished?.Invoke();
+            }
+        }
+
+        public static async Task RefreshTodoItems(CancellationTokenSource cts,
+            int userId,            
+            Action<TodoItem[]> success,
+            Action<string> error,
+            Action finished)
+        {
+            try
+            {
+                var response = await _services.Request<Dto.Response<Poco.WorkList>>(
+                    // Resource to call
+                    "todo/mylist",
+                    // HTTP method
+                    Method.GET,
+                    // Cancellation token
+                    cts.Token,
+                    // Content Type,
+                    RequestContentType.ApplicationJson,
+                    // Payload
+                    new
+                    {
+                        userId = userId,                        
+                    });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    TodoItem[] todoItems = response.Data.Content.Items
+                        .Select(x => new TodoItem
+                        {
+                            UserId = x.UserId,
+                            Title = x.Title,
+                            Description = x.Description,
+                            CreationDate = x.CreationDate?.ToLocalTime(),
+                            WillDoIn = x.WillDoIn,
+                            Tags = x.Tags,
+                            IsComplete = x.IsComplete,
+                            CompletionDate = x.CompletionDate?.ToLocalTime()
+                        })
+                        .ToArray();
+
+                    _database.RunInTransaction(t =>
+                        {
+                            t.DeleteAll<TodoItem>(x => x.UserId == userId);
+
+                            if (todoItems.Length > 0)
+                                t.InsertAll(todoItems);
+                        });
+                    
+                    success?.Invoke(todoItems);
+                }
+                else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    error?.Invoke("You must login again!");
+                }
+                else
+                {                    
+                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
                 
-        //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        //        {
-        //            if (success != null)
-        //                success(response.Data.Content);
-        //        }
-        //        else
-        //        {
-        //            if (error != null)
-        //                error(response.Data.ExceptionMessage ?? response.StatusDescription);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-        //        if (error != null)
-        //            error("Internal error :(");
-        //    }
-        //    finally
-        //    {
-        //        if (finished != null)
-        //            finished();
-        //    }
-        //}
+                error?.Invoke("Internal error :(");
+            }
+            finally
+            {                
+                finished?.Invoke();
+            }
+        }
 
         #endregion
 

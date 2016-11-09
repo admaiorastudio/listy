@@ -108,7 +108,7 @@
                 {                    
                     UIBundle b = new UIBundle();
                     b.PutBoolean("UserRestored", true);
-                    b.PutString("Email", data.Email);
+                    b.PutInt("UserId", data.UserId);
                     MakeRoot(typeof(MainViewController), b);
                 },
                 // Service call error

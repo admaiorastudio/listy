@@ -258,12 +258,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Listy.Api.Core\Listy.Api.Core.csproj">
-      <Project>{953d56de-6f29-405f-9fc2-e0b4fcbf7ba7}</Project>
-      <Name>Listy.Api.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +277,12 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Listy-Api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Listy-Api - Web Deploy.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Listy.Api.Core\Listy.Api.Core.csproj">
+      <Project>{d3dd441e-8efc-4678-97c6-7b96c14cd26b}</Project>
+      <Name>Listy.Api.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

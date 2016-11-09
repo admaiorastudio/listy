@@ -19,10 +19,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>x86_64</MtouchArch>
-    <MtouchLink>None</MtouchLink>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchArch>i386</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchSdkVersion>10.0</MtouchSdkVersion>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -114,9 +125,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Listy.Api\Listy.Api.Core\Listi.Api.Core.csproj">
+    <ProjectReference Include="..\Listy.Api\Listy.Api.Core\Listy.Api.Core.csproj">
       <Project>{d3dd441e-8efc-4678-97c6-7b96c14cd26b}</Project>
-      <Name>Listi.Api.Core</Name>
+      <Name>Listy.Api.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Listy\Listy.Core.csproj">
       <Name>Listy.Core</Name>
@@ -191,9 +202,16 @@
     <InterfaceDefinition Include="Resources\Layouts\Registration1ViewController.xib" />
     <InterfaceDefinition Include="Resources\Layouts\RegistrationDoneViewController.xib" />
     <InterfaceDefinition Include="Resources\Layouts\SplashViewController.xib" />
-    <InterfaceDefinition Include="Resources\Layouts\TaskViewController.xib" />
-    <InterfaceDefinition Include="Resources\Layouts\Cells\TaskViewCell.xib" />
+    <InterfaceDefinition Include="Resources\Layouts\TaskViewController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <InterfaceDefinition Include="Resources\Layouts\Cells\TaskViewCell.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <None Include="packages.config" />
+    <InterfaceDefinition Include="Resources\Layouts\TextInputViewController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Layouts\Cells\TaskViewCell.cs" />
@@ -237,6 +255,10 @@
     <Compile Include="UI\SubControllers\RegistrationDoneViewController.designer.cs">
       <DependentUpon>RegistrationDoneViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SubControllers\TextInputViewController.cs" />
+    <Compile Include="UI\SubControllers\TextInputViewController.designer.cs">
+      <DependentUpon>TextInputViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\icon_head.png" />
@@ -245,6 +267,33 @@
     <BundleResource Include="Resources\image_head.png" />
     <BundleResource Include="Resources\image_head1.png" />
     <BundleResource Include="Resources\image_head2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_tags.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_empty_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_empty_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_empty_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_selected_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_selected_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\image_check_selected_red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

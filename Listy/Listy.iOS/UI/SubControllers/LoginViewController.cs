@@ -174,15 +174,15 @@
                 AppController.LoginUser(_cts1, _email, _password,
                     // Service call success                 
                     (data) =>
-                    {
+                    {     
                         AppController.Settings.LastLoginUsernameUsed = _email;
                         AppController.Settings.AuthAccessToken = data.AuthAccessToken;
                         AppController.Settings.AuthExpirationDate = data.AuthExpirationDate.GetValueOrDefault().ToLocalTime();
-                        
-                        //var c = new ChatViewController();
-                        //c.Arguments = new UIBundle();
-                        //c.Arguments.PutString("Email", _email);
-                        //this.NavigationController.PushViewController(c, true);
+
+                        var c = new AgendaViewController();
+                        c.Arguments = new UIBundle();
+                        c.Arguments.PutInt("UserId", data.UserId);
+                        this.NavigationController.PushViewController(c, true);
                     },
                     // Service call error
                     (error) =>

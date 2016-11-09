@@ -32,7 +32,7 @@
 
         #endregion
 
-        #region Users Endpoint Methods
+        #region Todo Items Endpoint Methods
 
         [Authorize]
         [HttpPost, Route("todo/addnew")]
@@ -54,6 +54,7 @@
                         Title = item.Title,
                         Description = item.Description,
                         CreationDate = DateTime.Now.ToUniversalTime(),
+                        WillDoIn = item.WillDoIn,
                         Tags = item.Tags
                     };
 
@@ -68,6 +69,7 @@
                         Title = ti.Title,
                         Description = ti.Description,
                         CreationDate = ti.CreationDate,
+                        WillDoIn = ti.WillDoIn,
                         Tags = ti.Tags
                     }));
                 }
@@ -98,7 +100,8 @@
 
                     ti.Title = item.Title;
                     ti.Description = item.Description;
-                    ti.Tags = item.Tags;
+                    ti.WillDoIn = item.WillDoIn;
+                    ti.Tags = item.Tags;                    
 
                     ctx.SaveChanges();
 
@@ -109,6 +112,7 @@
                         Title = ti.Title,
                         Description = ti.Description,
                         CreationDate = ti.CreationDate,
+                        WillDoIn = ti.WillDoIn,
                         Tags = ti.Tags,
                         IsComplete = ti.IsComplete,
                         CompletionDate = ti.CompletionDate                        
@@ -123,7 +127,7 @@
 
         [Authorize]
         [HttpPost, Route("todo/complete")]
-        public IHttpActionResult Complete(int itemId)
+        public IHttpActionResult Complete([FromBody] int itemId)
         {
             if (itemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");
@@ -148,6 +152,47 @@
                         Title = ti.Title,
                         Description = ti.Description,
                         CreationDate = ti.CreationDate,
+                        WillDoIn = ti.WillDoIn,
+                        Tags = ti.Tags,
+                        IsComplete = ti.IsComplete,
+                        CompletionDate = ti.CompletionDate
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost, Route("todo/uncomplete")]
+        public IHttpActionResult Uncomplete([FromBody] int itemId)
+        {
+            if (itemId <= 0)
+                return BadRequest("TodoItem ID is not valid!");
+
+            try
+            {
+                using (var ctx = new ListyDbContext())
+                {
+                    TodoItem ti = ctx.TodoItems.SingleOrDefault(x => x.TodoItemId == itemId);
+                    if (ti == null)
+                        return InternalServerError(new InvalidOperationException("Invalid TodoItem ID!"));
+
+                    ti.IsComplete = false;
+                    ti.CompletionDate = null;
+
+                    ctx.SaveChanges();
+
+                    return Ok(Dto.Wrap(new Poco.TodoItem
+                    {
+                        TodoItemId = ti.TodoItemId,
+                        UserId = ti.UserId,
+                        Title = ti.Title,
+                        Description = ti.Description,
+                        CreationDate = ti.CreationDate,
+                        WillDoIn = ti.WillDoIn,
                         Tags = ti.Tags,
                         IsComplete = ti.IsComplete,
                         CompletionDate = ti.CompletionDate
@@ -162,7 +207,7 @@
 
         [Authorize]
         [HttpPost, Route("todo/delete")]
-        public IHttpActionResult Delete(int itemId)
+        public IHttpActionResult Delete([FromBody]int itemId)
         {
             if (itemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");
@@ -214,6 +259,7 @@
                                 Title = x.Title,
                                 Description = x.Description,
                                 CreationDate = x.CreationDate,
+                                WillDoIn = x.WillDoIn,
                                 Tags = x.Tags,
                                 IsComplete = x.IsComplete,
                                 CompletionDate = x.CompletionDate
