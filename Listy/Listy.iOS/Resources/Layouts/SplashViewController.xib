@@ -25,10 +25,10 @@
                             <frame key="frameInset" minX="20" width="200" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yes, I am a chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i75-f4-xZC">
-                            <frame key="frameInset" minX="47" minY="208" width="146" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Makes things done!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i75-f4-xZC">
+                            <frame key="frameInset" minX="23" minY="208" width="193" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                             <color key="textColor" red="0.85599720478057861" green="0.92423808574676514" blue="0.87807762622833252" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -50,12 +50,12 @@
             </subviews>
             <color key="backgroundColor" red="0.067808769643306732" green="0.039583303034305573" blue="0.11744510382413864" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="tAs-7Z-3rs" secondAttribute="trailing" id="6Sy-JA-86Y"/>
+                <constraint firstAttribute="trailing" secondItem="tAs-7Z-3rs" secondAttribute="trailing" constant="1" id="6Sy-JA-86Y"/>
                 <constraint firstItem="zgL-VB-mIp" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="AYX-in-KFE"/>
                 <constraint firstItem="zgL-VB-mIp" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="FWb-vU-OzO"/>
                 <constraint firstAttribute="bottom" secondItem="tAs-7Z-3rs" secondAttribute="bottom" id="nbO-fE-JTV"/>
             </constraints>
-            <point key="canvasLocation" x="-8" y="54"/>
+            <point key="canvasLocation" x="-8.5" y="53.5"/>
         </view>
     </objects>
     <resources>

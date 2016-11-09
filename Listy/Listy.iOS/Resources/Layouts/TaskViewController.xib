@@ -33,7 +33,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rlE-vX-vOv">
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_head.png" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-rJ-Aia">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_title.png" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-rJ-Aia">
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="E2G-92-kxZ"/>
                                 <constraint firstAttribute="width" constant="32" id="UGG-sL-Fbu"/>
@@ -44,8 +44,8 @@
                                 <constraint firstAttribute="height" constant="30" id="DO5-Od-KLb"/>
                             </constraints>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,19 +61,19 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cU-fO-Dxa">
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5wb-Pl-cEA">
-                            <color key="backgroundColor" red="0.62131714820861816" green="0.66150736808776855" blue="0.64232027530670166" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.91811370849609375" green="0.75817346572875977" blue="0.33593431115150452" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="Wpa-1f-qW4"/>
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNj-xd-Gyc">
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write here some notes..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miU-0t-OLb">
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write here some notes..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miU-0t-OLb">
                             <color key="backgroundColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -95,7 +95,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnB-aQ-1B1">
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_head.png" translatesAutoresizingMaskIntoConstraints="NO" id="PQk-3o-uiO">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_calendar.png" translatesAutoresizingMaskIntoConstraints="NO" id="PQk-3o-uiO">
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="Kda-KK-daH"/>
                                 <constraint firstAttribute="width" constant="32" id="LCD-hA-32C"/>
@@ -106,7 +106,7 @@
                                 <constraint firstAttribute="height" constant="21" id="Lxi-n8-Zq0"/>
                                 <constraint firstAttribute="width" constant="85" id="nlg-aR-mk8"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -114,7 +114,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="OH5-Z8-x6L"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -131,8 +131,8 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="b6G-m4-uDy" firstAttribute="leading" secondItem="4U3-sv-i8m" secondAttribute="trailing" constant="-7" id="7O8-Tz-Iwr"/>
-                        <constraint firstItem="4U3-sv-i8m" firstAttribute="leading" secondItem="FmH-9n-fzI" secondAttribute="trailing" constant="-9" id="Cw2-Lf-eqB"/>
+                        <constraint firstItem="b6G-m4-uDy" firstAttribute="leading" secondItem="4U3-sv-i8m" secondAttribute="trailing" constant="-6" id="7O8-Tz-Iwr"/>
+                        <constraint firstItem="4U3-sv-i8m" firstAttribute="leading" secondItem="FmH-9n-fzI" secondAttribute="trailing" constant="-10" id="Cw2-Lf-eqB"/>
                         <constraint firstItem="b6G-m4-uDy" firstAttribute="centerY" secondItem="qnB-aQ-1B1" secondAttribute="centerY" id="Goo-QG-or4"/>
                         <constraint firstItem="FmH-9n-fzI" firstAttribute="leading" secondItem="PQk-3o-uiO" secondAttribute="trailing" constant="8" id="L8m-yp-EEw"/>
                         <constraint firstAttribute="height" constant="60" id="Mwz-Yg-nl8"/>
@@ -145,7 +145,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQj-9L-ECH">
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_head.png" translatesAutoresizingMaskIntoConstraints="NO" id="4QF-eK-b6z">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_tags.png" translatesAutoresizingMaskIntoConstraints="NO" id="4QF-eK-b6z">
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="a0O-uF-n05"/>
                                 <constraint firstAttribute="width" constant="32" id="bbf-EF-gKp"/>
@@ -156,8 +156,8 @@
                                 <constraint firstAttribute="height" constant="30" id="a1T-kZ-LnH"/>
                             </constraints>
                             <color key="textColor" red="0.00033758452627807856" green="0.017409065738320351" blue="0.056042797863483429" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,6 +192,8 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_head.png" width="64" height="64"/>
+        <image name="icon_calendar.png" width="64" height="64"/>
+        <image name="icon_tags.png" width="64" height="64"/>
+        <image name="icon_title.png" width="64" height="64"/>
     </resources>
 </document>
