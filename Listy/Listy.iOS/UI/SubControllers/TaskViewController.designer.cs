@@ -13,6 +13,21 @@ namespace AdMaiora.Listy
 	partial class TaskViewController
 	{
 		[Outlet]
+		UIKit.UIView BlockLayout { get; set; }
+
+		[Outlet]
+		UIKit.UILabel CompletedDateLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel CompletedLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel CreatedDateLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel CreatedLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIButton DaysButton { get; set; }
 
 		[Outlet]
@@ -23,6 +38,9 @@ namespace AdMaiora.Listy
 
 		[Outlet]
 		UIKit.UITextView DescriptionText { get; set; }
+
+		[Outlet]
+		UIKit.UIView DetailsLayout { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView DueDateImage { get; set; }
@@ -59,19 +77,14 @@ namespace AdMaiora.Listy
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TitleLayout != null) {
-				TitleLayout.Dispose ();
-				TitleLayout = null;
+			if (DaysButton != null) {
+				DaysButton.Dispose ();
+				DaysButton = null;
 			}
 
-			if (TitleImage != null) {
-				TitleImage.Dispose ();
-				TitleImage = null;
-			}
-
-			if (TitleText != null) {
-				TitleText.Dispose ();
-				TitleText = null;
+			if (DescriptionLabel != null) {
+				DescriptionLabel.Dispose ();
+				DescriptionLabel = null;
 			}
 
 			if (DescriptionLayout != null) {
@@ -84,29 +97,9 @@ namespace AdMaiora.Listy
 				DescriptionText = null;
 			}
 
-			if (DescriptionLabel != null) {
-				DescriptionLabel.Dispose ();
-				DescriptionLabel = null;
-			}
-
-			if (SideBar != null) {
-				SideBar.Dispose ();
-				SideBar = null;
-			}
-
-			if (DueDateLayout != null) {
-				DueDateLayout.Dispose ();
-				DueDateLayout = null;
-			}
-
 			if (DueDateImage != null) {
 				DueDateImage.Dispose ();
 				DueDateImage = null;
-			}
-
-			if (WillDoLabel != null) {
-				WillDoLabel.Dispose ();
-				WillDoLabel = null;
 			}
 
 			if (DueDateLabel != null) {
@@ -114,14 +107,14 @@ namespace AdMaiora.Listy
 				DueDateLabel = null;
 			}
 
-			if (DaysButton != null) {
-				DaysButton.Dispose ();
-				DaysButton = null;
+			if (DueDateLayout != null) {
+				DueDateLayout.Dispose ();
+				DueDateLayout = null;
 			}
 
-			if (TagsLayout != null) {
-				TagsLayout.Dispose ();
-				TagsLayout = null;
+			if (SideBar != null) {
+				SideBar.Dispose ();
+				SideBar = null;
 			}
 
 			if (TagsImage != null) {
@@ -129,9 +122,64 @@ namespace AdMaiora.Listy
 				TagsImage = null;
 			}
 
+			if (TagsLayout != null) {
+				TagsLayout.Dispose ();
+				TagsLayout = null;
+			}
+
 			if (TagsText != null) {
 				TagsText.Dispose ();
 				TagsText = null;
+			}
+
+			if (TitleImage != null) {
+				TitleImage.Dispose ();
+				TitleImage = null;
+			}
+
+			if (TitleLayout != null) {
+				TitleLayout.Dispose ();
+				TitleLayout = null;
+			}
+
+			if (TitleText != null) {
+				TitleText.Dispose ();
+				TitleText = null;
+			}
+
+			if (WillDoLabel != null) {
+				WillDoLabel.Dispose ();
+				WillDoLabel = null;
+			}
+
+			if (CreatedLabel != null) {
+				CreatedLabel.Dispose ();
+				CreatedLabel = null;
+			}
+
+			if (CreatedDateLabel != null) {
+				CreatedDateLabel.Dispose ();
+				CreatedDateLabel = null;
+			}
+
+			if (CompletedLabel != null) {
+				CompletedLabel.Dispose ();
+				CompletedLabel = null;
+			}
+
+			if (CompletedDateLabel != null) {
+				CompletedDateLabel.Dispose ();
+				CompletedDateLabel = null;
+			}
+
+			if (DetailsLayout != null) {
+				DetailsLayout.Dispose ();
+				DetailsLayout = null;
+			}
+
+			if (BlockLayout != null) {
+				BlockLayout.Dispose ();
+				BlockLayout = null;
 			}
 		}
 	}
