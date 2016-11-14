@@ -33,56 +33,8 @@
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColorHint="@color/AshGray" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/DescriptionLayout"
-        android:background="@color/White"
-        android:layout_below="@+id/TitleLayout"
-        android:layout_above="@+id/DueDateLayout"
-        android:layout_marginTop="1dp">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/view2" />
-        <View
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/SideBar"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            android:background="@color/AshGray" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/DescriptionText"
-            android:background="@color/White"
-            android:layout_toRightOf="@+id/SideBar"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/RichBlack"
-            android:textSize="20dp"
-            android:clickable="false"
-            android:editable="true"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="18dp" />
-        <TextView
-            android:text="Put some notes here..."
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/HintLabel"
-            android:textSize="20dp"
-            android:layout_alignBottom="@+id/DescriptionText"
-            android:layout_alignLeft="@+id/DescriptionText"
-            android:layout_alignRight="@+id/DescriptionText"
-            android:layout_alignTop="@+id/DescriptionText"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/AshGray" />
+            android:textColorHint="@color/AshGray"
+            android:saveEnabled="false" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -90,7 +42,7 @@
         android:id="@+id/DueDateLayout"
         android:background="@color/White"
         android:layout_marginTop="1dp"
-        android:layout_above="@+id/TagsLayout">
+        android:layout_below="@+id/TitleLayout">
         <ImageView
             android:src="@drawable/icon_calendar"
             android:layout_width="32dp"
@@ -143,7 +95,7 @@
         android:id="@+id/TagsLayout"
         android:background="@color/White"
         android:layout_marginTop="1dp"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@+id/DueDateLayout">
         <ImageView
             android:src="@drawable/icon_tags"
             android:layout_width="32dp"
@@ -169,6 +121,114 @@
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColorHint="@color/AshGray" />
+            android:textColorHint="@color/AshGray"
+            android:saveEnabled="false" />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DescriptionLayout"
+        android:background="@color/White"
+        android:layout_marginTop="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/TagsLayout">
+        <View
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/SideBar"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/OrangeYellow" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/DescriptionText"
+            android:background="@color/White"
+            android:layout_toRightOf="@+id/SideBar"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/RichBlack"
+            android:textSize="20dp"
+            android:clickable="false"
+            android:editable="true"
+            android:layout_marginTop="18dp"
+            android:layout_above="@+id/DetailsLayout"
+            android:layout_marginBottom="8dp"
+            android:saveEnabled="false"
+            android:gravity="top" />
+        <TextView
+            android:text="Put some notes here..."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/DescriptionLabel"
+            android:textSize="20dp"
+            android:layout_alignBottom="@+id/DescriptionText"
+            android:layout_alignLeft="@+id/DescriptionText"
+            android:layout_alignRight="@+id/DescriptionText"
+            android:layout_alignTop="@+id/DescriptionText"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/AshGray"
+            android:gravity="center_vertical" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/DetailsLayout"
+            android:background="@color/MiddleRedPurple"
+            android:layout_alignLeft="@+id/SideBar"
+            android:layout_alignBottom="@+id/SideBar"
+            android:padding="6dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:text="Created:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CreatedLabel"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/Alabaster"
+                android:textSize="12dp" />
+            <TextView
+                android:text="n/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CreatedDateLabel"
+                android:layout_alignBaseline="@+id/CreatedLabel"
+                android:layout_toRightOf="@+id/CreatedLabel"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/Alabaster"
+                android:textSize="12dp"
+                android:layout_marginLeft="22dp" />
+            <TextView
+                android:text="Completed:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CompletedLabel"
+                android:layout_below="@+id/CreatedLabel"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/Alabaster"
+                android:textSize="12dp" />
+            <TextView
+                android:text="n/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CompletedDateLabel"
+                android:layout_alignBaseline="@+id/CompletedLabel"
+                android:layout_toRightOf="@+id/CompletedLabel"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/Alabaster"
+                android:textSize="12dp"
+                android:layout_alignLeft="@+id/CreatedDateLabel" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/BlockLayout"
+        android:background="@color/White"
+        android:alpha="0.5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true" />
 </RelativeLayout>

@@ -6,27 +6,57 @@ namespace AdMaiora.Listy
     using System.Text;
     using System.Threading;
 
-    using Foundation;
-    using UIKit;
+    using Android.App;
+    using Android.Content;
+    using Android.OS;
+    using Android.Runtime;
+    using Android.Util;
+    using Android.Views;
+    using Android.Widget;
+    using Android.Graphics;
 
     using AdMaiora.AppKit.UI;
 
-    using AdMaiora.Listy.Model;    
+    using AdMaiora.Listy.Model;
+    using Android.Support.V7.Widget;
 
-    #pragma warning disable CS4014
-    public partial class AgendaViewController : AdMaiora.AppKit.UI.App.UISubViewController
+#pragma warning disable CS4014
+    public class AgendaFragment : AdMaiora.AppKit.UI.App.Fragment
     {
         #region Inner Classes
-
-        private class AgendaViewSource : UIItemListViewSource<TodoItem>
+        class AgendaAdapter : ItemRecyclerAdapter<AgendaAdapter.ChatViewHolder, TodoItem>, View.IOnClickListener, View.IOnLongClickListener
         {
-            #region Constants and Fields           
+            #region Inner Classes
+
+            public class ChatViewHolder : ItemViewHolder
+            {
+                [Widget]
+                public ImageButton CheckButton;
+
+                [Widget]
+                public TextView TitleLabel;
+
+                public ChatViewHolder(View itemView)
+                    : base(itemView)
+                {                    
+                }
+            }
+
+            #endregion
+
+            #region Costants and Fields
+
+            private Random _rnd;
+
+            private List<string> _palette;
+            private Dictionary<string, string> _colors;
+
             #endregion
 
             #region Constructors
 
-            public AgendaViewSource(UIViewController controller, IEnumerable<TodoItem> source)
-                : base(controller, "TaskViewCell", source)
+            public AgendaAdapter(AdMaiora.AppKit.UI.App.Fragment context, IEnumerable<TodoItem> source)
+                : base(context, Resource.Layout.CellTask, source)
             {
             }
 
@@ -34,13 +64,11 @@ namespace AdMaiora.Listy
 
             #region Public Methods
 
-            public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath, UITableViewCell cellView, TodoItem item)
+            public override void GetView(int postion, ChatViewHolder holder, View view, TodoItem item)
             {
-                var cell = cellView as TaskViewCell;
-
                 string checkImage = "image_check_selected";
-                UIColor taskColor = ViewBuilder.ColorFromARGB(AppController.Colors.AshGray);
-                
+                Color taskColor = ViewBuilder.ColorFromARGB(AppController.Colors.AshGray);
+
                 if (!item.IsComplete)
                 {
                     checkImage = "image_check_empty_green";
@@ -60,14 +88,10 @@ namespace AdMaiora.Listy
                     }
                 }
 
-                cell.CheckButton.SetImage(UIImage.FromBundle(checkImage), UIControlState.Normal);
+                holder.CheckButton.SetImageResource(checkImage);
 
-                cell.SelectionStyle = UITableViewCellSelectionStyle.None;
-
-                cell.TitleLabel.Text = item.Title;
-                cell.TitleLabel.TextColor = taskColor;
-
-                return cell;
+                holder.TitleLabel.Text = item.Title;
+                holder.TitleLabel.SetTextColor(taskColor);
             }
 
             public void Clear()
@@ -95,16 +119,16 @@ namespace AdMaiora.Listy
 
             #region Methods
 
-            protected override void GetViewCreated(UITableView tableView, UITableViewCell cellView)
+            protected override void GetViewCreated(RecyclerView.ViewHolder holder, View view, ViewGroup parent)
             {
-                var cell = cellView as TaskViewCell;
-                cell.CheckButton.TouchUpInside += (s, e) =>
+                var cell = holder as ChatViewHolder;
+                cell.CheckButton.Click += (s, e) =>
                     {
-                        var item = GetItemFromView(cell);
-                        ExecuteCommand(tableView, item.IsComplete ? "SetAsNotDone" : "SetAsDone", item);                        
+                        var item = GetItemFromView(view);
+                        ExecuteCommand(parent, item.IsComplete ? "SetAsNotDone" : "SetAsDone", item);
                     };
             }
-            
+
             #endregion
         }
 
@@ -114,20 +138,25 @@ namespace AdMaiora.Listy
 
         private int _userId;
 
-        private AgendaViewSource _source;
+        private AgendaAdapter _adapter;
 
         // This flag check if we are already calling the login REST service
         private bool _isRefreshingItems;
         // This cancellation token is used to cancel the rest send message request
         private CancellationTokenSource _cts0;
+        
+        #endregion
 
+        #region Widgets
+
+        [Widget]
+        private ItemRecyclerView TaskList;
 
         #endregion
 
         #region Constructors
 
-        public AgendaViewController()
-            : base("AgendaViewController", null)
+        public AgendaFragment()
         {
         }
 
@@ -136,75 +165,80 @@ namespace AdMaiora.Listy
         #region Properties
         #endregion
 
-        #region ViewController Methods
+        #region Fragment Methods
 
-        public override void ViewDidLoad()
+        public override void OnCreate(Bundle savedInstanceState)
         {
-            base.ViewDidLoad();
+            base.OnCreate(savedInstanceState);
 
             _userId = this.Arguments.GetInt("UserId");
         }
 
-        public override void ViewWillAppear(bool animated)
+        public override void OnCreateView(LayoutInflater inflater, ViewGroup container)
         {
-            base.ViewWillAppear(animated);
+            base.OnCreateView(inflater, container);
 
-            #region Designer Stuff
+            #region Desinger Stuff
 
-            this.HasBarButtonItems = true;
+            SetContentView(Resource.Layout.FragmentAgenda, inflater, container);
+
+            this.HasOptionsMenu = true;
 
             #endregion
 
             this.Title = "Agenda";
 
-            this.NavigationController.SetNavigationBarHidden(false, true);
+            this.ActionBar.Show();
 
-            this.TaskList.RowHeight = UITableView.AutomaticDimension;
-            this.TaskList.EstimatedRowHeight = 46;            
-            this.TaskList.BackgroundColor = ViewBuilder.ColorFromARGB(AppController.Colors.White);
-            this.TaskList.TableFooterView = new UIView(CoreGraphics.CGRect.Empty);
             this.TaskList.ItemSelected += TaskList_ItemSelected;
             this.TaskList.ItemLongPress += TaskList_ItemLongPress;
-            this.TaskList.ItemCommand += TaskList_ItemCommand;            
+            this.TaskList.ItemCommand += TaskList_ItemCommand;
 
             RefreshTodoItems();
         }
 
-        public override bool CreateBarButtonItems(UIBarButtonCreator items)
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            items.AddItem("Add New", UIBarButtonItemStyle.Plain);
-            return true;
+            base.OnCreateOptionsMenu(menu, inflater);
+
+            menu.Clear();
+            menu.Add(0, 1, 0, "Add New").SetShowAsAction(ShowAsAction.Always);
         }
 
-        public override bool BarButtonItemSelected(int index)
+        public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch(index)
+            switch(item.ItemId)
             {
-                case AgendaViewController.BarButtonBack:
-
+                case Android.Resource.Id.Home:
                     QuitAgenda();
                     return true;
 
-                case 0:
+                case 1:
 
-                    var c = new TaskViewController();
-                    c.Arguments = new UIBundle();
-                    c.Arguments.PutInt("UserId", _userId);
-                    this.NavigationController.PushViewController(c, true);
+                    var f = new TaskFragment();
+                    f.Arguments = new Bundle();
+                    f.Arguments.PutInt("UserId", _userId);
+                    this.FragmentManager.BeginTransaction()
+                        .AddToBackStack("BeforeTaskFragment")
+                        .Replace(Resource.Id.ContentLayout, f, "TaskFragment")
+                        .Commit();
 
                     return true;
 
                 default:
-                    return base.BarButtonItemSelected(index);
+                    return base.OnOptionsItemSelected(item); ;
             }            
         }
 
-        public override void ViewWillDisappear(bool animated)
+        public override bool OnBackButton()
         {
-            base.ViewWillDisappear(animated);
+            QuitAgenda();
+            return true;            
+        }
 
-            if (_cts0 != null)
-                _cts0.Cancel();
+        public override void OnDestroyView()
+        {
+            base.OnDestroyView();
 
             this.TaskList.ItemSelected -= TaskList_ItemSelected;
             this.TaskList.ItemLongPress -= TaskList_ItemLongPress;
@@ -223,11 +257,11 @@ namespace AdMaiora.Listy
             if (_isRefreshingItems)
                 return;
 
-            this.TaskList.Hidden = true;
+            this.TaskList.Visibility = ViewStates.Gone;
 
             _isRefreshingItems = true;
-            ((MainViewController)this.MainViewController).BlockUI();
-                                    
+            ((MainActivity)this.Activity).BlockUI();
+
             _cts0 = new CancellationTokenSource();
             AppController.RefreshTodoItems(_cts0,
                 _userId,
@@ -237,27 +271,27 @@ namespace AdMaiora.Listy
                         .OrderBy(x => (x.CreationDate.GetValueOrDefault().Date.AddDays(x.WillDoIn).Date - DateTime.Now.Date).Days)
                         .ToArray();
 
-                    if (_source == null)
+                    if (_adapter == null)
                     {
-                        _source = new AgendaViewSource(this, items);
-                        this.TaskList.Source = _source;
+                        _adapter = new AgendaAdapter(this, items);
+                        this.TaskList.SetAdapter(_adapter);
                     }
                     else
                     {
-                        _source.Refresh(items);
-                        this.TaskList.ReloadData();              
+                        _adapter.Refresh(items);
+                        this.TaskList.ReloadData();
                     }
                 },
                 (error) =>
                 {
-                    UIToast.MakeText(error, UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, error, ToastLength.Long).Show();
                 },
                 () =>
                 {
-                    this.TaskList.Hidden = false;
+                    this.TaskList.Visibility = ViewStates.Visible;
 
                     _isRefreshingItems = false;
-                    ((MainViewController)this.MainViewController).UnblockUI();
+                    ((MainActivity)this.Activity).UnblockUI();
                 });
         }
 
@@ -267,7 +301,7 @@ namespace AdMaiora.Listy
                 return;
 
             _isRefreshingItems = true;
-            ((MainViewController)this.MainViewController).BlockUI();
+            ((MainActivity)this.Activity).BlockUI();
 
             _cts0 = new CancellationTokenSource();
             AppController.CompleteTodoItem(_cts0,
@@ -275,17 +309,17 @@ namespace AdMaiora.Listy
                 completed,
                 (todoItem) =>
                 {
-                    _source.SetAsCompleted(todoItem.TodoItemId, todoItem.IsComplete, todoItem.CompletionDate);
+                    _adapter.SetAsCompleted(todoItem.TodoItemId, todoItem.IsComplete, todoItem.CompletionDate);
                     this.TaskList.ReloadData();
                 },
                 (error) =>
                 {
-                    UIToast.MakeText(error, UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, error, ToastLength.Long).Show();
                 },
                 () =>
                 {
                     _isRefreshingItems = false;
-                    ((MainViewController)this.MainViewController).UnblockUI();
+                    ((MainActivity)this.Activity).UnblockUI();
                 });
         }
 
@@ -293,46 +327,46 @@ namespace AdMaiora.Listy
         {
             if (_isRefreshingItems)
                 return;
-            
+
             _isRefreshingItems = true;
-            ((MainViewController)this.MainViewController).BlockUI();
+            ((MainActivity)this.Activity).BlockUI();
 
             _cts0 = new CancellationTokenSource();
             AppController.DeleteTodoItem(_cts0,
                 item.TodoItemId,
                 () =>
                 {
-                    _source.RemoveItem(item);              
+                    _adapter.RemoveItem(item);
                     this.TaskList.ReloadData();
 
-                    UIToast.MakeText("An item has been removed!", UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, "An item has been removed!", ToastLength.Long).Show();
                 },
                 (error) =>
                 {
-                    UIToast.MakeText(error, UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, error, ToastLength.Long).Show();
                 },
                 () =>
                 {
                     _isRefreshingItems = false;
-                    ((MainViewController)this.MainViewController).UnblockUI();
+                    ((MainActivity)this.Activity).UnblockUI();
                 });
         }
 
         private void QuitAgenda()
         {
-            (new UIAlertViewBuilder(new UIAlertView()))
+            (new AlertDialog.Builder(this.Activity))
                 .SetTitle("Leave the agenda?")
                 .SetMessage("Press ok to leave the agenda now!")
-                .AddButton("Ok",
+                .SetPositiveButton("Ok",
                     (s, ea) =>
                     {
                         AppController.Settings.AuthAccessToken = null;
                         AppController.Settings.AuthExpirationDate = null;
 
                         this.DismissKeyboard();
-                        this.NavigationController.PopViewController(true);
+                        this.FragmentManager.PopBackStack();
                     })
-                .AddButton("Take me back",
+                .SetNegativeButton("Take me back",
                     (s, ea) =>
                     {
                     })
@@ -342,29 +376,31 @@ namespace AdMaiora.Listy
         #endregion
 
         #region Event Handlers
-
-        private void TaskList_ItemSelected(object sender, UIItemListSelectEventArgs e)
+        private void TaskList_ItemSelected(object sender, ItemListSelectEventArgs e)
         {
             TodoItem item = e.Item as TodoItem;
 
-            var c = new TaskViewController();
-            c.Arguments = new UIBundle();
-            c.Arguments.PutObject<TodoItem>("Item", item);
-            this.NavigationController.PushViewController(c, true);
+            var f = new TaskFragment();
+            f.Arguments = new Bundle();
+            f.Arguments.PutObject("Item", item);
+            this.FragmentManager.BeginTransaction()
+                .AddToBackStack("BeforeTaskFragment")
+                .Replace(Resource.Id.ContentLayout, f, "TaskFragment")
+                .Commit();
         }
 
-        private void TaskList_ItemLongPress(object sender, UIItemListLongPressEventArgs e)
+        private void TaskList_ItemLongPress(object sender, ItemListLongPressEventArgs e)
         {
-            (new UIAlertViewBuilder(new UIAlertView()))
+            (new AlertDialog.Builder(this.Activity))
                 .SetTitle("Delete this item from the list?")
                 .SetMessage("Press ok to delete the item")
-                .AddButton("Delete",
+                .SetPositiveButton("Delete",
                     (s, ea) =>
-                    {          
+                    {
                         TodoItem item = e.Item as TodoItem;
-                        DeleteTodoItem(item);                          
+                        DeleteTodoItem(item);
                     })
-                .AddButton("No!",
+                .SetNegativeButton("No!",
                     (s, ea) =>
                     {
                         // Do Nothing!
@@ -372,10 +408,10 @@ namespace AdMaiora.Listy
                 .Show();
         }
 
-        private void TaskList_ItemCommand(object sender, UIItemListCommandEventArgs e)
+        private void TaskList_ItemCommand(object sender, ItemListCommandEventArgs e)
         {
             TodoItem item = e.UserData as TodoItem;
-            switch(e.Command)
+            switch (e.Command)
             {
                 case "SetAsDone":
                     CompleteTodoItem(item, true);
@@ -392,5 +428,3 @@ namespace AdMaiora.Listy
         #endregion
     }
 }
-
-

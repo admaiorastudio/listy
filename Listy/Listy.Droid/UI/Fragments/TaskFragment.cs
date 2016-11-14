@@ -6,15 +6,21 @@ namespace AdMaiora.Listy
     using System.Text;
     using System.Threading;
 
-    using Foundation;
-    using UIKit;
+    using Android.App;
+    using Android.Content;
+    using Android.OS;
+    using Android.Runtime;
+    using Android.Util;
+    using Android.Views;
+    using Android.Widget;
+    using Android.Graphics;
 
     using AdMaiora.AppKit.UI;
 
     using AdMaiora.Listy.Model;
 
     #pragma warning disable CS4014
-    public partial class TaskViewController : AdMaiora.AppKit.UI.App.UISubViewController
+    public class TaskFragment : AdMaiora.AppKit.UI.App.Fragment
     {
         #region Inner Classes
         #endregion
@@ -34,10 +40,76 @@ namespace AdMaiora.Listy
 
         #endregion
 
+        #region Widgets
+
+        [Widget]
+        private RelativeLayout TitleLayout;
+
+        [Widget]
+        private ImageView TitleImage;
+
+        [Widget]
+        private EditText TitleText;
+
+        [Widget]
+        private RelativeLayout DueDateLayout;
+
+        [Widget]
+        private ImageView DueDateImage;
+
+        [Widget]
+        private TextView WillDoLabel;
+
+        [Widget]
+        private TextView DueDateLabel;
+
+        [Widget]
+        private Button DaysButton;
+
+        [Widget]
+        private RelativeLayout TagsLayout;
+
+        [Widget]
+        private ImageView TagsImage;
+
+        [Widget]
+        private EditText TagsText;
+
+        [Widget]
+        private RelativeLayout DescriptionLayout;
+
+        [Widget]
+        private View SideBar;
+
+        [Widget]
+        private EditText DescriptionText;
+
+        [Widget]
+        private TextView DescriptionLabel;
+
+        [Widget]
+        private RelativeLayout DetailsLayout;
+
+        [Widget]
+        private TextView CreatedLabel;
+
+        [Widget]
+        private TextView CreatedDateLabel;
+
+        [Widget]
+        private TextView CompletedLabel;
+
+        [Widget]
+        private TextView CompletedDateLabel;
+
+        [Widget]
+        private View BlockLayout;
+
+        #endregion
+
         #region Constructors
 
-        public TaskViewController()
-            : base("TaskViewController", null)
+        public TaskFragment()
         {
         }
 
@@ -46,11 +118,11 @@ namespace AdMaiora.Listy
         #region Properties
         #endregion
 
-        #region ViewController Methods
+        #region Fragment Methods
 
-        public override void ViewDidLoad()
+        public override void OnCreate(Bundle savedInstanceState)
         {
-            base.ViewDidLoad();
+            base.OnCreate(savedInstanceState);
 
             _willDoIn = 5;
 
@@ -58,58 +130,64 @@ namespace AdMaiora.Listy
             _item = this.Arguments.GetObject<TodoItem>("Item");
         }
 
-        public override void ViewWillAppear(bool animated)
+        public override void OnCreateView(LayoutInflater inflater, ViewGroup container)
         {
-            base.ViewWillAppear(animated);
+            base.OnCreateView(inflater, container);
 
-            #region Designer Stuff
+            #region Desinger Stuff
             
-            var texts = new[] { this.TitleText, this.TagsText };
-            this.AutoShouldReturnTextFields(texts);
-            this.AutoDismissTextFields(texts);
-
-            this.NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
-
-            this.HasBarButtonItems = true;
+            SetContentView(Resource.Layout.FragmentTask, inflater, container);
             
             SlideUpToShowKeyboard();
 
-            #endregion
+            this.HasOptionsMenu = true;
+
+            #endregion           
 
             this.Title = "New Item";
 
-            this.DescriptionLabel.UserInteractionEnabled = true;
-            this.DescriptionLabel.AddGestureRecognizer(new UITapGestureRecognizer(
-                () =>
+            this.DescriptionLabel.Clickable = true;
+            this.DescriptionLabel.SetOnTouchListener(GestureRecogniser.ForSingleTapUp(this.Activity,
+                (e) =>
                 {
                     this.DismissKeyboard();
 
-                    var c = new TextInputViewController();
-                    c.ContentText = this.DescriptionText.Text;
-                    c.TextInputDone += TextInputViewController_TextInputDone;
-                    this.NavigationController.PushViewController(c, false);
-
+                    var f = new TextInputFragment();
+                    f.ContentText = this.DescriptionText.Text;
+                    f.TextInputDone += TextInputFragment_TextInputDone;
+                    this.FragmentManager.BeginTransaction()
+                        .AddToBackStack("BeforeTextInputFragment")
+                        .Replace(Resource.Id.ContentLayout, f, "TextInputFragment")
+                        .Commit();
                 }));
 
-            this.DaysButton.TouchUpInside += DaysButton_TouchUpInside;
-            
+
+            this.DaysButton.Click += DaysButton_Click;
+
             if (_item != null)
                 LoadItem(_item);
 
-            this.BlockLayout.Hidden = _item == null || !_item.IsComplete;
+            this.BlockLayout.Visibility = _item == null || !_item.IsComplete ? ViewStates.Gone : ViewStates.Visible;
         }
 
-        public override bool CreateBarButtonItems(UIBarButtonCreator items)
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            items.AddItem("Save", UIBarButtonItemStyle.Plain);
-            return true;
+            base.OnCreateOptionsMenu(menu, inflater);
+
+            menu.Clear();
+            menu.Add(0, 1, 0, "Save").SetShowAsAction(ShowAsAction.Always);
         }
 
-        public override bool BarButtonItemSelected(int index)
+        public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (index)
+            switch(item.ItemId)
             {
-                case 0:
+                case Android.Resource.Id.Home:
+
+                    this.Activity.OnBackPressed();
+                    return true;
+
+                case 1:
 
                     if (_item == null)
                         AddTodoItem();
@@ -119,18 +197,18 @@ namespace AdMaiora.Listy
                     return true;
 
                 default:
-                    return base.BarButtonItemSelected(index);
-            }
+                    return base.OnOptionsItemSelected(item);
+            }            
         }
 
-        public override void ViewWillDisappear(bool animated)
+        public override void OnDestroyView()
         {
-            base.ViewWillDisappear(animated);
+            base.OnDestroyView();
 
             if (_cts0 != null)
                 _cts0.Cancel();
 
-            this.DaysButton.TouchUpInside -= DaysButton_TouchUpInside;
+            this.DaysButton.Click -= DaysButton_Click;
         }
 
         #endregion
@@ -139,7 +217,7 @@ namespace AdMaiora.Listy
         #endregion
 
         #region Methods
-        
+
         private void LoadItem(TodoItem item)
         {
             this.TitleText.Text = item.Title;
@@ -148,7 +226,7 @@ namespace AdMaiora.Listy
             this.CompletedDateLabel.Text = item.CompletionDate?.ToString("G") ?? "n/a";
 
             SetWillDoInDays(item.WillDoIn);
-            SetDescription(item.Description);                        
+            SetDescription(item.Description);
         }
 
         private void SetDescription(string description)
@@ -162,8 +240,8 @@ namespace AdMaiora.Listy
             _willDoIn = willDoIn;
             if (_willDoIn < 0)
                 _willDoIn = 5;
-           
-            UIColor color = ViewBuilder.ColorFromARGB(AppController.Colors.Green);
+
+            Color color = ViewBuilder.ColorFromARGB(AppController.Colors.Green);
             if (_willDoIn < 2)
             {
                 color = ViewBuilder.ColorFromARGB(AppController.Colors.Red);
@@ -173,8 +251,8 @@ namespace AdMaiora.Listy
                 color = ViewBuilder.ColorFromARGB(AppController.Colors.Orange);
             }
 
-            this.DaysButton.SetTitle(_willDoIn.ToString(), UIControlState.Normal);
-            this.DaysButton.SetTitleColor(color, UIControlState.Normal);
+            this.DaysButton.Text = _willDoIn.ToString();
+            this.DaysButton.SetTextColor(color);
         }
 
         private bool ValidateInput()
@@ -182,12 +260,12 @@ namespace AdMaiora.Listy
             var validator = new WidgetValidator()
                 .AddValidator(() => this.TitleText.Text, WidgetValidator.IsNotNullOrEmpty, "Please insert a title!")
                 .AddValidator(() => this.DescriptionText.Text, WidgetValidator.IsNotNullOrEmpty, "Please insert a description!")
-                .AddValidator(() => this.TagsText.Text, (string s) => String.IsNullOrWhiteSpace(s) || !s.Contains(" "), "Tags must be comma separated list, no blanks!");                
+                .AddValidator(() => this.TagsText.Text, (string s) => String.IsNullOrWhiteSpace(s) || !s.Contains(" "), "Tags must be comma separated list, no blanks!");
 
             string errorMessage;
             if (!validator.Validate(out errorMessage))
             {
-                UIToast.MakeText(errorMessage, UIToastLength.Long).Show();
+                Toast.MakeText(this.Activity.ApplicationContext, errorMessage, ToastLength.Long).Show();
 
                 return false;
             }
@@ -208,8 +286,8 @@ namespace AdMaiora.Listy
             string tags = this.TagsText.Text;
 
             _isSendingTodoItem = true;
-            ((MainViewController)this.MainViewController).BlockUI();
-            
+            ((MainActivity)this.Activity).BlockUI();
+
             _cts0 = new CancellationTokenSource();
             AppController.AddTodoItem(_cts0,
                 _userId,
@@ -219,16 +297,16 @@ namespace AdMaiora.Listy
                 tags,
                 (todoItem) =>
                 {
-                    this.NavigationController.PopViewController(true);
+                    this.FragmentManager.PopBackStack();
                 },
                 (error) =>
                 {
-                    UIToast.MakeText(error, UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, error, ToastLength.Long).Show();
                 },
                 () =>
                 {
                     _isSendingTodoItem = false;
-                    ((MainViewController)this.MainViewController).UnblockUI();
+                    ((MainActivity)this.Activity).UnblockUI();
                 });
         }
 
@@ -245,7 +323,7 @@ namespace AdMaiora.Listy
             string tags = this.TagsText.Text;
 
             _isSendingTodoItem = true;
-            ((MainViewController)this.MainViewController).BlockUI();
+            ((MainActivity)this.Activity).BlockUI();
 
             _cts0 = new CancellationTokenSource();
             AppController.UpdateTodoItem(_cts0,
@@ -256,16 +334,16 @@ namespace AdMaiora.Listy
                 tags,
                 (todoItem) =>
                 {
-                    this.NavigationController.PopViewController(true);
+                    this.FragmentManager.PopBackStack();
                 },
                 (error) =>
                 {
-                    UIToast.MakeText(error, UIToastLength.Long).Show();
+                    Toast.MakeText(this.Activity.ApplicationContext, error, ToastLength.Long).Show();
                 },
                 () =>
                 {
                     _isSendingTodoItem = false;
-                    ((MainViewController)this.MainViewController).UnblockUI();
+                    ((MainActivity)this.Activity).UnblockUI();
                 });
         }
 
@@ -273,12 +351,12 @@ namespace AdMaiora.Listy
 
         #region Event Handlers
 
-        private void TextInputViewController_TextInputDone(object sender, TextInputDoneEventArgs e)
+        private void TextInputFragment_TextInputDone(object sender, TextInputDoneEventArgs e)
         {
             SetDescription(e.Text);
         }
 
-        private void DaysButton_TouchUpInside(object sender, EventArgs e)
+        private void DaysButton_Click(object sender, EventArgs e)
         {
             SetWillDoInDays(_willDoIn - 1);
         }
@@ -286,5 +364,3 @@ namespace AdMaiora.Listy
         #endregion
     }
 }
-
-

@@ -12,9 +12,9 @@
     <item name="actionMenuTextColor">@color/White</item>
     <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">@color/MiddleRedPurple</item>
+    <item name="colorPrimary">@color/OrangeYellow</item>
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">@color/MiddleRedPurple</item>
+    <item name="colorPrimaryDark">@color/OrangeYellow</item>
   </style>
 
   <!-- Application splash theme -->

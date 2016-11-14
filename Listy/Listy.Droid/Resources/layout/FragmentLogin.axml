@@ -5,7 +5,7 @@
     android:background="@color/MiddleRedPurple">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:id="@+id/LoginLayout"
         android:layout_centerInParent="true"
         android:focusable="true"
@@ -41,7 +41,8 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif-light"
                 android:textSize="20dp"
-                android:privateImeOptions="noMicrophoneKey" />
+                android:privateImeOptions="noMicrophoneKey"
+                android:saveEnabled="false" />
             <EditText
                 android:inputType="textPassword"
                 android:layout_width="300dp"
@@ -61,7 +62,8 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif-light"
                 android:textSize="20dp"
-                android:imeOptions="actionDone" />
+                android:imeOptions="actionDone"
+                android:saveEnabled="false" />
             <Button
                 android:text="LOGIN"
                 android:layout_width="300dp"

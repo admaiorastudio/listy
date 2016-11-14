@@ -234,7 +234,7 @@
         }
     
         public static void EnableDataStorage(IDataStoragePlatform sqlitePlatform)
-        {
+        {                        
             FileUri storageUri = _filesystem.CreateFileUri(AppController.Globals.DatabaseFilePath);
             _database = new DataStorage(sqlitePlatform, storageUri);
         }
@@ -280,8 +280,9 @@
                     success?.Invoke(response.Data.Content);
                 }
                 else
-                {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -332,8 +333,9 @@
                     success?.Invoke(response.Data.Content);
                 }
                 else
-                {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -378,8 +380,9 @@
                     success?.Invoke();
                 }
                 else
-                {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -427,8 +430,9 @@
                     success?.Invoke(response.Data.Content);
                 }
                 else
-                {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -504,7 +508,8 @@
                 }
                 else
                 {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -535,7 +540,7 @@
                     // Resource to call
                     "todo/update",
                     // HTTP method
-                    Method.GET,
+                    Method.POST,
                     // Cancellation token
                     cts.Token,
                     // Content Type,
@@ -556,7 +561,7 @@
                     _database.RunInTransaction(t =>
                         {
                             var i = response.Data.Content;
-                            todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
+                            todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == i.TodoItemId);
                             todoItem.Title = i.Title;
                             todoItem.Description = i.Description;
                             todoItem.WillDoIn = i.WillDoIn;
@@ -573,7 +578,8 @@
                 }
                 else
                 {
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -599,18 +605,15 @@
             {
                 var response = await _services.Request<Dto.Response<Poco.TodoItem>>(
                     // Resource to call
-                    complete ? "todo/update" : "todo/uncomplete",
+                    complete ? "todo/complete" : "todo/uncomplete",
                     // HTTP method
-                    Method.GET,
+                    Method.POST,
                     // Cancellation token
                     cts.Token,
                     // Content Type,
                     RequestContentType.ApplicationJson,
                     // Payload
-                    new
-                    {
-                        itemId = todoItemId
-                    });
+                    todoItemId);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {                    
@@ -618,11 +621,11 @@
                     _database.RunInTransaction(t =>
                     {
                         var i = response.Data.Content;
-                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
+                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == i.TodoItemId);
                         todoItem.IsComplete = i.IsComplete;
-                        todoItem.CompletionDate = i.CompletionDate;
+                        todoItem.CompletionDate = i.CompletionDate?.ToLocalTime();
 
-                        _database.Update(todoItem);
+                        t.Update(todoItem);
                     });
 
 
@@ -634,7 +637,8 @@
                 }
                 else
                 {
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -661,24 +665,21 @@
                     // Resource to call
                     "todo/delete",
                     // HTTP method
-                    Method.GET,
+                    Method.POST,
                     // Cancellation token
                     cts.Token,
                     // Content Type,
                     RequestContentType.ApplicationJson,
                     // Payload
-                    new
-                    {
-                        itemId = todoItemId,
-                    });
+                    todoItemId);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     TodoItem todoItem = null;
                     _database.RunInTransaction(t =>
                     {                        
-                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == x.TodoItemId);
-                        _database.Delete(todoItem);
+                        todoItem = t.FindSingle<TodoItem>(x => x.TodoItemId == todoItemId);
+                        t.Delete(todoItem);
                     });
 
                     success?.Invoke();
@@ -689,7 +690,8 @@
                 }
                 else
                 {
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -732,6 +734,7 @@
                     TodoItem[] todoItems = response.Data.Content.Items
                         .Select(x => new TodoItem
                         {
+                            TodoItemId = x.TodoItemId,
                             UserId = x.UserId,
                             Title = x.Title,
                             Description = x.Description,
@@ -758,8 +761,9 @@
                     error?.Invoke("You must login again!");
                 }
                 else
-                {                    
-                    error?.Invoke(response.Data.ExceptionMessage ?? response.StatusDescription);
+                {
+                    error?.Invoke(
+                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)

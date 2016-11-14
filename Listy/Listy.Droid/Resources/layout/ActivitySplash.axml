@@ -16,7 +16,7 @@
             android:scaleType="fitXY"
             android:layout_centerHorizontal="true" />
         <TextView
-            android:text="Yes, I am a chat"
+            android:text="Make things done!"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/LogoImage"
@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="@color/Alabaster"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:fontFamily="sans-serif-light"
             android:layout_marginTop="16dp" />
     </RelativeLayout>

@@ -9,8 +9,7 @@
     using UIKit;
     using CoreGraphics;
 
-    using AdMaiora.AppKit.UI;
-    using AppKit.UI.App;
+    using AdMaiora.AppKit.UI;    
 
     public partial class TextInputViewController : AdMaiora.AppKit.UI.App.UISubViewController
     {
@@ -66,14 +65,14 @@
             
             this.HasBarButtonItems = true;
 
-            SlideUpToShowKeyboard();
+            ResizeToShowKeyboard();
 
             #endregion
 
             this.Title = "Description"; 
             
             this.InputText.Text = this.ContentText;
-            this.InputText.BecomeFirstResponder();
+            this.InputText.RequestUserInput();
         }
 
         public override bool CreateBarButtonItems(UIBarButtonCreator items)
@@ -91,8 +90,12 @@
             {
                 case 0:
 
+                    this.DismissKeyboard();
+
                     OnInputDone();
+
                     this.NavigationController.PopViewController(false);
+
                     return true;
 
                 default:
