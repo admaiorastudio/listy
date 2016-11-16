@@ -84,7 +84,7 @@
                     Content content = new Content("text/plain",
                         String.Format("Hi {0},\n\nYou registration on Listy is almost complete. Please click on this link to confirm your registration!\n\n{1}",
                         user.Email.Split('@')[0],
-                        String.Format("http://listy-api.azurewebsites.net/users/confirm?ticket={0}", user.Ticket)));
+                        String.Format("https://listy-api.azurewebsites.net/users/confirm?ticket={0}", user.Ticket)));
                     Mail mail = new Mail(from, subject, to, content);
 
                     dynamic response = await mc.client.mail.send.post(requestBody: mail.Get());

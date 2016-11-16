@@ -8,12 +8,6 @@
         android:minHeight="25px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout2" />
-    <RelativeLayout
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/WelcomeLayout"
         android:layout_centerInParent="true">
         <ImageView
