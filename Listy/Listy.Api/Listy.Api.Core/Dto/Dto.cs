@@ -6,8 +6,7 @@
     {
         public class User
         {
-            public int UserId;
-            public int FacebookId;
+            public int UserId;            
             public string Email;
             public string Password;
             public DateTime? LoginDate;

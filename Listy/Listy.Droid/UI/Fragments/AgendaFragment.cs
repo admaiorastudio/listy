@@ -14,17 +14,18 @@ namespace AdMaiora.Listy
     using Android.Views;
     using Android.Widget;
     using Android.Graphics;
+	using Android.Support.V7.Widget;
 
     using AdMaiora.AppKit.UI;
 
-    using AdMaiora.Listy.Model;
-    using Android.Support.V7.Widget;
+    using AdMaiora.Listy.Model;    
 
-#pragma warning disable CS4014
+	#pragma warning disable CS4014
     public class AgendaFragment : AdMaiora.AppKit.UI.App.Fragment
     {
         #region Inner Classes
-        class AgendaAdapter : ItemRecyclerAdapter<AgendaAdapter.ChatViewHolder, TodoItem>, View.IOnClickListener, View.IOnLongClickListener
+		
+        class AgendaAdapter : ItemRecyclerAdapter<AgendaAdapter.ChatViewHolder, TodoItem>
         {
             #region Inner Classes
 

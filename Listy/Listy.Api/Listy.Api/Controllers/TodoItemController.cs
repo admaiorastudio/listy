@@ -35,7 +35,7 @@
         #region Todo Items Endpoint Methods
 
         [Authorize]
-        [HttpPost, Route("todo/addnew")]
+        [HttpPut, Route("todo/addnew")]
         public IHttpActionResult AddNew(Poco.TodoItem item)
         {
             if(item.UserId <= 0)
@@ -206,8 +206,8 @@
         }
 
         [Authorize]
-        [HttpPost, Route("todo/delete")]
-        public IHttpActionResult Delete([FromBody]int itemId)
+        [HttpDelete, Route("todo/delete")]
+        public IHttpActionResult Delete(int itemId)
         {
             if (itemId <= 0)
                 return BadRequest("TodoItem ID is not valid!");

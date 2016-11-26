@@ -49,20 +49,20 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdMaiora.AppKit.Core, Version=1.0.6159.29760, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.7\lib\MonoAndroid10\AdMaiora.AppKit.Core.dll</HintPath>
+    <Reference Include="AdMaiora.AppKit.Core, Version=1.0.6170.30919, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.8\lib\MonoAndroid10\AdMaiora.AppKit.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AdMaiora.AppKit.Core.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.7\lib\MonoAndroid10\AdMaiora.AppKit.Core.Android.dll</HintPath>
+      <HintPath>..\..\packages\AdMaiora.AppKit.1.0.8\lib\MonoAndroid10\AdMaiora.AppKit.Core.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AdMaiora.AppKit.UI, Version=1.0.6159.21983, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.5\lib\MonoAndroid10\AdMaiora.AppKit.UI.dll</HintPath>
+    <Reference Include="AdMaiora.AppKit.UI, Version=1.0.6171.26200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.8\lib\MonoAndroid10\AdMaiora.AppKit.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AdMaiora.AppKit.UI.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.5\lib\MonoAndroid10\AdMaiora.AppKit.UI.Android.dll</HintPath>
+      <HintPath>..\..\packages\AdMaiora.AppKit.UI.1.0.8\lib\MonoAndroid10\AdMaiora.AppKit.UI.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -202,18 +202,6 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\color\color_orangeyellow.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\color\color_alabaster.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\image_button0.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\image_button1.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\icon_head.png" />
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +270,7 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\image_check_selected.png" />

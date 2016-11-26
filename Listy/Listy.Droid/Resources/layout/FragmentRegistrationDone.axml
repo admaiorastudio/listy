@@ -37,7 +37,7 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:id="@+id/GoToLoginButton"
-        android:background="@drawable/image_button0"
+        android:background="@color/Green"
         android:textColor="@color/White"
         android:textSize="20dp"
         android:fontFamily="sans-serif-light"

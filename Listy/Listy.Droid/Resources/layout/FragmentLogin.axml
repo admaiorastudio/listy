@@ -74,7 +74,7 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/White"
                 android:textSize="20dp"
-                android:background="@drawable/image_button0"
+                android:background="@color/Green"
                 android:fontFamily="sans-serif-light" />
             <Button
                 android:text="I'm not registered!"
@@ -86,7 +86,7 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_below="@+id/LoginButton"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/color_alabaster" />
+                android:textColor="@color/Alabaster" />
             <Button
                 android:text="Resend confirmation email"
                 android:layout_width="300dp"
@@ -97,7 +97,7 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_below="@+id/RegisterButton"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/color_orangeyellow" />
+                android:textColor="@color/OrangeYellow" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

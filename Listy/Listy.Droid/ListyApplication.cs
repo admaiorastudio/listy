@@ -31,11 +31,6 @@
         #endregion
 
         #region Events
-
-        public event EventHandler<EventArgs> PushNotificationRegistered;
-        public event EventHandler<PushEventArgs> PushNotificationRegistrationFailed;
-        public event EventHandler<PushEventArgs> PushNotificationReceived;
-
         #endregion
 
         #region Constructors

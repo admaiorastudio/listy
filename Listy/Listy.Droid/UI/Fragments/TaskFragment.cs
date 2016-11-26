@@ -147,7 +147,7 @@ namespace AdMaiora.Listy
             this.Title = "New Item";
 
             this.DescriptionLabel.Clickable = true;
-            this.DescriptionLabel.SetOnTouchListener(GestureRecogniser.ForSingleTapUp(this.Activity,
+            this.DescriptionLabel.SetOnTouchListener(GestureListener.ForSingleTapUp(this.Activity,
                 (e) =>
                 {
                     this.DismissKeyboard();
@@ -182,11 +182,6 @@ namespace AdMaiora.Listy
         {
             switch(item.ItemId)
             {
-                case Android.Resource.Id.Home:
-
-                    this.Activity.OnBackPressed();
-                    return true;
-
                 case 1:
 
                     if (_item == null)

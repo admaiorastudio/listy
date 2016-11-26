@@ -263,12 +263,12 @@
                     // Resource to call
                     "users/register",
                     // HTTP method
-                    Method.POST,
+                    Method.PUT,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     new
                     {
                         email = email,
@@ -282,7 +282,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -313,9 +313,9 @@
                     Method.POST,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     new
                     {
                         email = email,
@@ -335,7 +335,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -366,9 +366,9 @@
                     Method.POST,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     new
                     {
                         email = email,
@@ -382,7 +382,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -412,9 +412,9 @@
                     Method.GET,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Default,
+                    // Parameters
                     new
                     {
                         accessToken = accessToken
@@ -432,7 +432,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -467,12 +467,12 @@
                     // Resource to call
                     "todo/addnew",
                     // HTTP method
-                    Method.POST,
+                    Method.PUT,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     new
                     {
                         UserId = userId,
@@ -509,7 +509,7 @@
                 else
                 {                    
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -543,9 +543,9 @@
                     Method.POST,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     new
                     {
                         TodoItemId = todoItemId,
@@ -579,7 +579,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -610,9 +610,9 @@
                     Method.POST,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters handling
+                    ParametersHandling.Body,
+                    // Parameters
                     todoItemId);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -638,7 +638,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -665,13 +665,16 @@
                     // Resource to call
                     "todo/delete",
                     // HTTP method
-                    Method.POST,
+                    Method.DELETE,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
-                    todoItemId);
+                    // Parameters handling
+                    ParametersHandling.Default,
+                    // Parameters
+                    new
+                    {
+                        itemId = todoItemId
+                    });
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -691,7 +694,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
@@ -721,9 +724,9 @@
                     Method.GET,
                     // Cancellation token
                     cts.Token,
-                    // Content Type,
-                    RequestContentType.ApplicationJson,
-                    // Payload
+                    // Parameters Handling
+                    ParametersHandling.Default,
+                    // Parameters
                     new
                     {
                         userId = userId,                        
@@ -763,7 +766,7 @@
                 else
                 {
                     error?.Invoke(
-                        response.Data.Message ?? response.Data.ExceptionMessage ?? response.StatusDescription);
+                        response.Data.ExceptionMessage ?? response.Data.Message ?? response.StatusDescription);
                 }
             }
             catch (Exception ex)
