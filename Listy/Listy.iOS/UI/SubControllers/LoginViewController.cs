@@ -207,10 +207,10 @@
         {
             if (ValidateInput())
             {
-                if (_isLogginUser)
+                if (_isConfirmingUser)
                     return;
 
-                _isLogginUser = true;
+                _isConfirmingUser = true;
 
                 _email = this.EmailText.Text;
                 _password = this.PasswordText.Text;
@@ -236,7 +236,7 @@
                     // Service call finished 
                     () =>
                     {
-                        _isLogginUser = false;
+                        _isConfirmingUser = false;
 
                         // Allow user to tap views
                         ((MainViewController)this.MainViewController).UnblockUI();

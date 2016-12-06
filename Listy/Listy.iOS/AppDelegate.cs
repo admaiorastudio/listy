@@ -28,13 +28,6 @@
         #endregion
 
         #region Properties
-
-        public override UIWindow Window
-        {
-			get;
-			set;
-		}
-
         #endregion
 
         #region Application Methods
