@@ -159,6 +159,8 @@ namespace AdMaiora.Listy
 
             this.NavigationController.SetNavigationBarHidden(false, true);
 
+            _source = new AgendaViewSource(this, new TodoItem[0]):
+            this.TaskList.Source = _source;
             this.TaskList.RowHeight = UITableView.AutomaticDimension;
             this.TaskList.EstimatedRowHeight = 46;            
             this.TaskList.BackgroundColor = ViewBuilder.ColorFromARGB(AppController.Colors.White);
@@ -237,16 +239,8 @@ namespace AdMaiora.Listy
                         .OrderBy(x => (x.CreationDate.GetValueOrDefault().Date.AddDays(x.WillDoIn).Date - DateTime.Now.Date).Days)
                         .ToArray();
 
-                    if (_source == null)
-                    {
-                        _source = new AgendaViewSource(this, items);
-                        this.TaskList.Source = _source;
-                    }
-                    else
-                    {
-                        _source.Refresh(items);
-                        this.TaskList.ReloadData();              
-                    }
+                    _source.Refresh(items);
+                    this.TaskList.ReloadData();
                 },
                 (error) =>
                 {

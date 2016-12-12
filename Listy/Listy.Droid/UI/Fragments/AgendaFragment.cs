@@ -191,6 +191,8 @@ namespace AdMaiora.Listy
 
             this.ActionBar.Show();
 
+            _adapter = new AgendaAdapter(this, new TodoItem[0]);
+            this.TaskList.SetAdapter(_adapter);
             this.TaskList.ItemSelected += TaskList_ItemSelected;
             this.TaskList.ItemLongPress += TaskList_ItemLongPress;
             this.TaskList.ItemCommand += TaskList_ItemCommand;
@@ -272,16 +274,8 @@ namespace AdMaiora.Listy
                         .OrderBy(x => (x.CreationDate.GetValueOrDefault().Date.AddDays(x.WillDoIn).Date - DateTime.Now.Date).Days)
                         .ToArray();
 
-                    if (_adapter == null)
-                    {
-                        _adapter = new AgendaAdapter(this, items);
-                        this.TaskList.SetAdapter(_adapter);
-                    }
-                    else
-                    {
-                        _adapter.Refresh(items);
-                        this.TaskList.ReloadData();
-                    }
+                    _adapter.Refresh(items);
+                    this.TaskList.ReloadData();
                 },
                 (error) =>
                 {
